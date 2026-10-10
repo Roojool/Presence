@@ -1,0 +1,17 @@
+# Dependencies (reinstall with `npm install`)
+node_modules/
+
+# Local machine data (your bookings live in data/ on your PC)
+data/
+
+# Vercel local deploy state
+.vercel
+
+# Real secrets - NEVER commit these
+.env
+.env.local
+
+# OS / editor noise
+Thumbs.db
+desktop.ini
+.DS_Store
