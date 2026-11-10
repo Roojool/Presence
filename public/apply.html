@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fashion &amp; Brand Modeling Application — Presence.</title>
+  <meta name="description" content="Apply for fashion and brand modeling with Presence. Confidential application review for newcomers and experienced models.">
+
+  <!-- Typography: Federant (Display Serif) & Karla (Editorial Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Federant&family=Karla:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+
+  <!-- Shared Site Styles & Apply Styles -->
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/assets/apply.css">
+
+  <!-- Shared Script & Apply Module -->
+  <script src="/assets/site.js" defer></script>
+  <script type="module" src="/assets/apply.js"></script>
+</head>
+<body data-page="apply">
+
+  <!-- Injected Header by site.js contract -->
+  <header id="site-header" class="site-header"></header>
+
+  <main id="main-content" class="apply-main" role="main">
+
+    <!-- Compact Intro Section: starts immediately below header -->
+    <section class="apply-intro-section" aria-labelledby="apply-heading">
+      <div class="container">
+        <div class="apply-intro-content">
+          <p class="eyebrow">
+            <span class="eyebrow-mark">
+              <img src="/assets/lily-mark.svg" alt="" width="16" height="16" aria-hidden="true">
+            </span>
+            <span>Fashion &amp; Brand Models</span>
+          </p>
+          <h1 id="apply-heading" class="apply-title">Model <em>Application.</em></h1>
+          <p class="apply-lede">
+            We are hiring fashion and brand models. Share your contact details, background, and Instagram username. Newcomers welcome.
+          </p>
+          <div class="apply-meta-pills" role="region" aria-label="Key terms">
+            <span class="pill-item">Newcomers Welcome</span>
+            <span class="pill-dot" aria-hidden="true">&middot;</span>
+            <span class="pill-item">Instagram Profile Review</span>
+            <span class="pill-dot" aria-hidden="true">&middot;</span>
+            <span class="pill-item">No Applicant Login</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Workspace Section: Form (Left) & Sidebar (Right) -->
+    <section class="section-sm apply-stage-section" aria-label="Application Submission">
+      <div class="container">
+
+        <!-- Truthful Service Status Banner (Populated if config unavailable/disabled) -->
+        <div id="apply-status-banner" class="apply-status-banner" role="status" aria-live="polite" hidden></div>
+
+        <div class="apply-workspace-grid">
+
+          <!-- Left Column: Form & Confirmation -->
+          <div class="apply-form-column">
+
+            <!-- Success Confirmation Card -->
+            <div id="apply-success-card" class="card card-editorial apply-success-card" role="region" aria-label="Application Confirmation" hidden>
+              <div class="success-header">
+                <span class="badge badge-success">Application Received</span>
+                <h2 class="success-title">Submission <em>Confirmed.</em></h2>
+              </div>
+              <p class="success-intro">
+                Thank you for applying. Your application has been received for review.
+              </p>
+
+              <div class="ref-box">
+                <span class="ref-label">Reference Code</span>
+                <span id="success-ref-val" class="ref-value"></span>
+              </div>
+
+              <div class="receipt-note" id="success-receipt-note" aria-live="polite">
+                <!-- Truthful receipt copy populated dynamically based on validated receiptStatus -->
+              </div>
+
+              <div class="success-actions">
+                <button type="button" id="apply-reset-btn" class="btn btn-secondary btn-sm">Submit Another Application</button>
+                <a href="https://www.linkedin.com/in/rujul-talekar/" class="btn btn-ghost btn-sm" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a>
+              </div>
+            </div>
+
+            <!-- Primary Application Form -->
+            <form id="apply-form" class="card card-cherry apply-form-card" novalidate aria-labelledby="form-section-heading">
+              <div class="form-header">
+                <h2 id="form-section-heading" class="form-title">Candidate <em>Details.</em></h2>
+                <p class="form-lede">
+                  All fields marked with an asterisk (<span class="req">*</span>) are required.
+                </p>
+              </div>
+
+              <!-- General Form Alert Banner -->
+              <div id="apply-form-alert" class="notice notice-error apply-form-alert" role="alert" hidden></div>
+
+              <!-- Honeypot anti-spam trap -->
+              <div class="honeypot-field" aria-hidden="true" style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;">
+                <label for="a-website">Leave this field blank</label>
+                <input type="text" id="a-website" name="website" tabindex="-1" autocomplete="off">
+              </div>
+
+              <!-- Field: Full Name -->
+              <div class="field" id="field-a-name">
+                <label for="a-name" class="label">
+                  <span>Full Name</span>
+                  <span class="req" aria-hidden="true">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="a-name"
+                  name="name"
+                  class="input"
+                  required
+                  minlength="2"
+                  maxlength="100"
+                  autocomplete="name"
+                  placeholder="Elena Rostova"
+                  aria-required="true"
+                  aria-describedby="a-name-hint a-name-err"
+                >
+                <div id="a-name-hint" class="field-hint">Your legal or professional name.</div>
+                <div id="a-name-err" class="field-error" aria-live="polite"></div>
+              </div>
+
+              <!-- Row: Email & Phone -->
+              <div class="field-row">
+                <!-- Field: Email -->
+                <div class="field" id="field-a-email">
+                  <label for="a-email" class="label">
+                    <span>Email Address</span>
+                    <span class="req" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="a-email"
+                    name="email"
+                    class="input"
+                    required
+                    maxlength="254"
+                    autocomplete="email"
+                    placeholder="elena@example.com"
+                    aria-required="true"
+                    aria-describedby="a-email-hint a-email-err"
+                  >
+                  <div id="a-email-hint" class="field-hint">For submission confirmation and review updates.</div>
+                  <div id="a-email-err" class="field-error" aria-live="polite"></div>
+                </div>
+
+                <!-- Field: Phone -->
+                <div class="field" id="field-a-phone">
+                  <label for="a-phone" class="label">
+                    <span>Phone Number</span>
+                    <span class="req" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    id="a-phone"
+                    name="phone"
+                    class="input"
+                    required
+                    maxlength="40"
+                    autocomplete="tel"
+                    placeholder="+91 98765 43210"
+                    aria-required="true"
+                    aria-describedby="a-phone-hint a-phone-err"
+                  >
+                  <div id="a-phone-hint" class="field-hint">Include country code for international contact.</div>
+                  <div id="a-phone-err" class="field-error" aria-live="polite"></div>
+                </div>
+              </div>
+
+              <!-- Row: City & Age -->
+              <div class="field-row">
+                <!-- Field: City -->
+                <div class="field" id="field-a-city">
+                  <label for="a-city" class="label">
+                    <span>Base City</span>
+                    <span class="req" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="a-city"
+                    name="city"
+                    class="input"
+                    required
+                    minlength="2"
+                    maxlength="100"
+                    autocomplete="address-level2"
+                    placeholder="Mumbai, Bengaluru, Delhi, etc."
+                    aria-required="true"
+                    aria-describedby="a-city-hint a-city-err"
+                  >
+                  <div id="a-city-hint" class="field-hint">City where you are currently located.</div>
+                  <div id="a-city-err" class="field-error" aria-live="polite"></div>
+                </div>
+
+                <!-- Field: Age -->
+                <div class="field" id="field-a-age">
+                  <label for="a-age" class="label">
+                    <span>Age</span>
+                    <span class="req" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    id="a-age"
+                    name="age"
+                    class="input"
+                    required
+                    min="18"
+                    max="120"
+                    step="1"
+                    placeholder="21"
+                    aria-required="true"
+                    aria-describedby="a-age-hint a-age-err"
+                  >
+                  <div id="a-age-hint" class="field-hint">Applicants must be 18 or older.</div>
+                  <div id="a-age-err" class="field-error" aria-live="polite"></div>
+                </div>
+              </div>
+
+              <!-- Field: About / Experience -->
+              <div class="field" id="field-a-experience">
+                <label for="a-experience" class="label">
+                  <span>About / Experience</span>
+                  <span class="req" aria-hidden="true">*</span>
+                </label>
+                <textarea
+                  id="a-experience"
+                  name="experience"
+                  class="textarea"
+                  required
+                  minlength="10"
+                  maxlength="5000"
+                  rows="4"
+                  placeholder="Tell us about yourself, any modeling or creative experience, or personal style. Newcomers welcome."
+                  aria-required="true"
+                  aria-describedby="a-experience-hint a-experience-err"
+                ></textarea>
+                <div id="a-experience-hint" class="field-hint">Tell us about yourself and any experience. Newcomers welcome (minimum 10 characters).</div>
+                <div id="a-experience-err" class="field-error" aria-live="polite"></div>
+              </div>
+
+              <!-- Row: Optional Portfolio & Social -->
+              <div class="field-row">
+                <!-- Field: Portfolio -->
+                <div class="field" id="field-a-portfolio">
+                  <label for="a-portfolio" class="label">
+                    <span>Portfolio Link</span>
+                    <span class="field-optional">(Optional)</span>
+                  </label>
+                  <input
+                    type="url"
+                    id="a-portfolio"
+                    name="portfolio"
+                    class="input"
+                    maxlength="500"
+                    placeholder="https://yourportfolio.com"
+                    aria-describedby="a-portfolio-hint a-portfolio-err"
+                  >
+                  <div id="a-portfolio-hint" class="field-hint">Must start with https://</div>
+                  <div id="a-portfolio-err" class="field-error" aria-live="polite"></div>
+                </div>
+
+                <!-- Field: Social -->
+                <div class="field" id="field-a-social">
+                  <label for="a-social" class="label">
+                    <span>Instagram username</span>
+                    <span class="req" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    id="a-social"
+                    name="social"
+                    class="input"
+                    maxlength="100"
+                    placeholder="@yourhandle"
+                    aria-describedby="a-social-hint a-social-err"
+                  >
+                  <div id="a-social-hint" class="field-hint">Your Instagram username, with or without @.</div>
+                  <div id="a-social-err" class="field-error" aria-live="polite"></div>
+                </div>
+              </div>
+
+              <!-- Field: Consent -->
+              <div class="field field-consent" id="field-a-consent">
+                <label class="checkbox-label" for="a-consent">
+                  <input
+                    type="checkbox"
+                    id="a-consent"
+                    name="consent"
+                    required
+                    aria-required="true"
+                    aria-describedby="a-consent-hint a-consent-err"
+                  >
+                  <span>
+                    I consent to the review of my application details and Instagram profile.
+                    <span class="req" aria-hidden="true">*</span>
+                  </span>
+                </label>
+                <div id="a-consent-hint" class="field-hint">Consent is for application review.</div>
+                <div id="a-consent-err" class="field-error" aria-live="polite"></div>
+              </div>
+
+              <!-- Progress Indicator -->
+              <div id="apply-progress-wrap" class="apply-progress-wrap" role="region" aria-label="Upload progress" aria-live="polite" hidden>
+                <div class="progress-info">
+                  <span id="apply-progress-label" class="progress-label">Submitting application</span>
+                  <span id="apply-progress-percent" class="progress-percent">0%</span>
+                </div>
+                <div class="progress-bar-track">
+                  <div id="apply-progress-fill" class="progress-bar-fill" style="width: 0%;"></div>
+                </div>
+              </div>
+
+              <!-- Submit Actions -->
+              <div class="form-actions">
+                <button type="submit" id="apply-submit-btn" class="btn btn-primary btn-lg btn-block" disabled aria-disabled="true">
+                  <span id="submit-btn-text">Loading configuration...</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Right Column: Sidebar (Requirements, Private Review, LinkedIn, Art) -->
+          <div class="apply-sidebar-column">
+
+            <!-- Sidebar Card: Requirements & Review -->
+            <div class="card card-editorial sidebar-card">
+              <span class="card-tag">Requirements</span>
+              <h3 class="sidebar-title">Application <em>Review.</em></h3>
+              <ul class="editorial-list">
+                <li><strong>Age:</strong> 18 years of age or older.</li>
+                <li><strong>Instagram:</strong> Share your username so our team can review your profile.</li>
+                <li>Connect with <a href="https://www.instagram.com/presence.me/" target="_blank" rel="noopener noreferrer">@presence.me on Instagram</a> and send us a message with your application name.</li>
+                <li><strong>Privacy:</strong> Application details are available to authorized reviewers.</li>
+                <li><strong>No Applicant Login:</strong> Submissions are made directly through this form.</li>
+              </ul>
+            </div>
+
+            <!-- Sidebar Card: LinkedIn Panel -->
+            <div class="card card-cherry sidebar-card linkedin-card" id="linkedin-panel" aria-labelledby="linkedin-heading">
+              <span class="card-tag">Contact</span>
+              <h3 id="linkedin-heading" class="sidebar-title">Connect on <em>LinkedIn.</em></h3>
+              <p class="sidebar-text">
+                Connect with Rujul Talekar on LinkedIn for direct inquiries.
+              </p>
+
+              <!-- Valid locally generated QR SVG (Decodes to https://www.linkedin.com/in/rujul-talekar/) -->
+              <div class="linkedin-qr-frame">
+                <div class="linkedin-qr-inner">
+                  <img
+                    src="/assets/linkedin-qr.svg"
+                    alt="QR code to connect with Rujul Talekar on LinkedIn"
+                    width="148"
+                    height="148"
+                    class="linkedin-qr-img"
+                  >
+                </div>
+                <span class="qr-caption">Scan to open LinkedIn profile</span>
+              </div>
+
+              <div class="linkedin-cta-wrap">
+                <a
+                  href="https://www.linkedin.com/in/rujul-talekar/"
+                  class="btn btn-secondary btn-block linkedin-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Connect with Rujul Talekar on LinkedIn (opens in a new tab)"
+                >
+                  <span>Connect on LinkedIn</span>
+                  <span aria-hidden="true">&rarr;</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Private, local-only applicant preview -->
+            <div class="card sidebar-art-card applicant-card">
+              <span class="card-tag">Your application</span>
+              <h3 class="sidebar-title">A little <em>about you.</em></h3>
+              <div class="art-plate-inner">
+                <img src="/assets/lily-art.svg" alt="" class="art-plate-img" width="240" height="320">
+              </div>
+              <dl class="applicant-summary">
+                <div><dt>Name</dt><dd id="preview-name">Your name</dd></div>
+                <div><dt>City</dt><dd id="preview-city">Your city</dd></div>
+                <div><dt>Instagram</dt><dd id="preview-social">Your username</dd></div>
+              </dl>
+              <p class="applicant-preview-note">A preview for you, updated as you type.</p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Injected Footer by site.js contract -->
+  <footer id="site-footer" class="site-footer"></footer>
+
+</body>
+</html>

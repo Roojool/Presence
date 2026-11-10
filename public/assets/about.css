@@ -1,0 +1,483 @@
+/* ==========================================================================
+   Presence. — About Page Specific Styles (Worker C)
+   Dark Floral Editorial · The Gentleman · 7 Practices · Discretion
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. The Gentleman & Story Hero (#gentleman)
+   -------------------------------------------------------------------------- */
+.about-hero {
+  padding: clamp(32px, 6vh, 64px) 0 clamp(24px, 4vh, 48px);
+  position: relative;
+  background: radial-gradient(circle at 80% 20%, rgba(201, 22, 29, 0.08) 0%, transparent 60%);
+}
+
+.about-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(28px, 4.5vw, 56px);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .about-hero-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+.about-story {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.about-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--text-ivory);
+  margin: 0;
+}
+
+.about-title em {
+  font-style: italic;
+  color: var(--crimson-bright);
+}
+
+.about-lede {
+  font-size: clamp(0.98rem, 1.25vw, 1.1rem);
+  line-height: 1.6;
+  color: var(--text-bone);
+  margin: 0;
+}
+
+.about-narrative {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.about-credentials {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 6px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+@media (min-width: 560px) {
+  .about-credentials {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.cred-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cred-label {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sage);
+}
+
+.cred-value {
+  font-size: 0.88rem;
+  color: var(--text-bone);
+}
+
+/* Botanical Art Frame in Hero */
+.about-visual {
+  display: flex;
+  justify-content: center;
+}
+
+.about-art-frame {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 3 / 3.8;
+  border-radius: var(--radius-arch);
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 35%, #2a0b12 0%, #0e0507 80%);
+  border: 1px solid rgba(201, 22, 29, 0.35);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.about-art-img {
+  width: 88%;
+  height: auto;
+  max-height: 88%;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.8));
+}
+
+/* --------------------------------------------------------------------------
+   2. The 7 Practices (#practices)
+   -------------------------------------------------------------------------- */
+.about-practices {
+  padding: clamp(36px, 6vh, 64px) 0;
+  background: var(--bg-ink-rich);
+}
+
+.practices-header {
+  margin-bottom: clamp(24px, 4vh, 40px);
+}
+
+.practice-rate-notice {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-surface);
+  border: 1px solid rgba(201, 22, 29, 0.25);
+  font-size: 0.85rem;
+  color: var(--text-bone);
+}
+
+.rate-badge {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--crimson-bright);
+  font-size: 0.98rem;
+}
+
+.rate-sub {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.practices-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.practice-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+@media (min-width: 768px) {
+  .practice-card {
+    grid-template-columns: 60px 1fr auto;
+    align-items: center;
+    gap: 24px;
+  }
+}
+
+.practice-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(201, 22, 29, 0.4);
+}
+
+.practice-num {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.8rem;
+  color: rgba(201, 22, 29, 0.7);
+  line-height: 1;
+}
+
+.practice-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.practice-name {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--text-ivory);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.practice-desc {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.practice-action {
+  display: flex;
+  align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   3. Word of Mouth & Discretion (#word)
+   -------------------------------------------------------------------------- */
+.about-discretion {
+  padding: clamp(36px, 6vh, 64px) 0;
+  background: linear-gradient(180deg, var(--bg-ink-rich) 0%, var(--bg-ink) 100%);
+}
+
+.discretion-card {
+  background: linear-gradient(145deg, #17090d 0%, #0c0406 100%);
+  border: 1px solid rgba(201, 22, 29, 0.28);
+  border-radius: var(--radius-lg);
+  padding: clamp(24px, 4vw, 44px);
+  box-shadow: var(--shadow-card);
+}
+
+.discretion-header {
+  margin-bottom: 14px;
+}
+
+.discretion-quote {
+  font-family: var(--font-serif);
+  font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--text-ivory-soft);
+  margin-bottom: 14px;
+}
+
+.discretion-text {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text-bone);
+  max-width: 680px;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   4. The Stewards Section (Chetan Pujari, Rujul Talekar, Prathmesh Kadam)
+   -------------------------------------------------------------------------- */
+.about-stewards {
+  padding: clamp(28px, 4vh, 48px) 0;
+}
+
+.compact-team-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  max-width: 480px;
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .compact-team-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(12px, 2vw, 20px);
+    max-width: 860px;
+  }
+}
+
+.compact-team-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 16px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.compact-team-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--crimson);
+  box-shadow: var(--shadow-card);
+}
+
+.compact-team-card:focus-visible {
+  outline: 2px solid var(--crimson);
+  outline-offset: 3px;
+}
+
+.compact-team-thumb {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 40%, #2a0b12 0%, #0e0507 80%);
+  border: 1px solid rgba(201, 22, 29, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.compact-team-portrait { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+
+.compact-team-art {
+  width: 22px;
+  height: 22px;
+  opacity: 0.88;
+}
+
+.compact-team-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.compact-team-name {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--text-ivory);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.compact-team-role {
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.compact-team-qr {
+  margin: 4px 0;
+  padding: 6px;
+  background: #faf6ee;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.compact-qr-img {
+  width: 76px;
+  height: 76px;
+  display: block;
+}
+
+.compact-team-cta {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--crimson-bright);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: auto;
+  transition: color var(--transition-fast);
+}
+
+.compact-team-card:hover .compact-team-cta {
+  color: var(--text-ivory);
+}
+
+@media (max-width: 640px) {
+  .compact-team-thumb { width: 68px; height: 68px; }
+  .compact-team-card {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    text-align: left;
+    gap: 12px;
+    padding: 12px 14px;
+  }
+
+  .compact-team-info {
+    text-align: left;
+  }
+
+  .compact-team-cta {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    padding-top: 6px;
+    border-top: 1px solid rgba(192, 185, 166, 0.08);
+  }
+
+  .compact-team-qr {
+    padding: 4px;
+  }
+
+  .compact-qr-img {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Compact Dual Action Banner
+   -------------------------------------------------------------------------- */
+.about-cta-section {
+  padding: clamp(28px, 4vh, 48px) 0;
+  background: linear-gradient(180deg, var(--bg-ink) 0%, #110609 100%);
+}
+
+.dual-cta-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .dual-cta-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.cta-panel {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: clamp(18px, 2.5vw, 28px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.cta-panel-book {
+  background: linear-gradient(160deg, #1a0b10 0%, #100508 100%);
+  border-color: rgba(201, 22, 29, 0.3);
+}
+
+.cta-panel-apply {
+  background: linear-gradient(160deg, #15090d 0%, #0c0406 100%);
+  border-color: rgba(192, 185, 166, 0.2);
+}
+
+.cta-panel-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+  color: var(--text-ivory);
+  margin: 0 0 6px 0;
+}
+
+.cta-panel-desc {
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin: 0;
+}

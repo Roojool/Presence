@@ -1,0 +1,213 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none" aria-label="Presence — Red Spider Lily botanical art">
+  <defs>
+    <!-- Background atmospheric glow -->
+    <radialGradient id="art-halo" cx="50%" cy="50%" r="48%" fx="50%" fy="46%">
+      <stop offset="0%" stop-color="#c9161d" stop-opacity="0.32"/>
+      <stop offset="35%" stop-color="#7a0d14" stop-opacity="0.18"/>
+      <stop offset="70%" stop-color="#24070a" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#0a0506" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Linear gradients for petals -->
+    <linearGradient id="petal-main" x1="0%" y1="100%" x2="40%" y2="0%">
+      <stop offset="0%" stop-color="#4d070b"/>
+      <stop offset="30%" stop-color="#991017"/>
+      <stop offset="70%" stop-color="#d61a22"/>
+      <stop offset="100%" stop-color="#ff4751"/>
+    </linearGradient>
+
+    <linearGradient id="petal-shadow" x1="0%" y1="100%" x2="60%" y2="0%">
+      <stop offset="0%" stop-color="#2c0407"/>
+      <stop offset="50%" stop-color="#690a10"/>
+      <stop offset="100%" stop-color="#b8141b"/>
+    </linearGradient>
+
+    <linearGradient id="petal-highlight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff6b72"/>
+      <stop offset="60%" stop-color="#d61a22"/>
+      <stop offset="100%" stop-color="#7a0d14"/>
+    </linearGradient>
+
+    <linearGradient id="stem-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1e2419"/>
+      <stop offset="40%" stop-color="#4b593a"/>
+      <stop offset="75%" stop-color="#2e3825"/>
+      <stop offset="100%" stop-color="#141810"/>
+    </linearGradient>
+
+    <linearGradient id="filament-grad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#7a0d14"/>
+      <stop offset="45%" stop-color="#c9161d"/>
+      <stop offset="85%" stop-color="#ff3b45"/>
+      <stop offset="100%" stop-color="#ffe8eb"/>
+    </linearGradient>
+
+    <linearGradient id="filament-dim" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#45080c"/>
+      <stop offset="60%" stop-color="#8c1117"/>
+      <stop offset="100%" stop-color="#cc2129"/>
+    </linearGradient>
+
+    <linearGradient id="anther-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff5e6"/>
+      <stop offset="45%" stop-color="#e9dec9"/>
+      <stop offset="100%" stop-color="#a33d26"/>
+    </linearGradient>
+
+    <!-- Editorial ring filter -->
+    <filter id="soft-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Deep dark cherry ambient background canvas -->
+  <rect width="600" height="800" fill="#090506"/>
+  <circle cx="300" cy="380" r="320" fill="url(#art-halo)"/>
+
+  <!-- Editorial decorative rings / specimen aura -->
+  <circle cx="300" cy="380" r="240" stroke="#c9161d" stroke-width="0.75" stroke-dasharray="3 14" opacity="0.3"/>
+  <circle cx="300" cy="380" r="180" stroke="#b8b19a" stroke-width="0.5" stroke-dasharray="1 8" opacity="0.2"/>
+  <circle cx="300" cy="380" r="285" stroke="#c9161d" stroke-width="0.5" opacity="0.15"/>
+
+  <!-- Scape (main stem) -->
+  <g id="scape">
+    <path d="M300 480 C299 560 302 660 300 800" stroke="url(#stem-grad)" stroke-width="11" stroke-linecap="round"/>
+    <path d="M298 480 C297 560 300 660 298 800" stroke="#687a52" stroke-width="1.8" opacity="0.45" stroke-linecap="round"/>
+    <!-- Involucre / bract at summit -->
+    <path d="M291 482 C289 470 293 458 300 455 C307 458 311 470 309 482 Z" fill="#323b28"/>
+    <path d="M293 478 C287 465 292 452 300 448 C308 452 313 465 307 478 Z" fill="#4d1a1e"/>
+  </g>
+
+  <!-- Pedicels (individual floret stalks) -->
+  <g id="pedicels" stroke="#4a5739" stroke-width="3" stroke-linecap="round">
+    <path d="M297 455 C275 448 245 442 225 435"/>
+    <path d="M298 454 C268 438 232 418 205 402"/>
+    <path d="M299 452 C285 430 270 395 260 368"/>
+    <path d="M301 452 C315 430 330 395 340 368"/>
+    <path d="M302 454 C332 438 368 418 395 402"/>
+    <path d="M303 455 C325 448 355 442 375 435"/>
+  </g>
+
+  <!-- BACKGROUND FLORET PETALS (Darker, receding) -->
+  <g id="petals-rear" opacity="0.88">
+    <!-- Center rear tepals -->
+    <path d="M290 420 C270 360 262 310 282 270 C292 250 308 252 302 278 C294 312 292 360 294 415 Z" fill="url(#petal-shadow)"/>
+    <path d="M310 420 C330 360 338 310 318 270 C308 250 292 252 298 278 C306 312 308 360 306 415 Z" fill="url(#petal-shadow)"/>
+
+    <!-- High left rear -->
+    <path d="M260 380 C235 340 205 305 180 300 C165 297 162 314 175 325 C198 344 230 365 255 385 Z" fill="url(#petal-shadow)"/>
+    <!-- High right rear -->
+    <path d="M340 380 C365 340 395 305 420 300 C435 297 438 314 425 325 C402 344 370 365 345 385 Z" fill="url(#petal-shadow)"/>
+
+    <!-- Far left rear sweep -->
+    <path d="M225 435 C175 435 120 440 92 460 C76 472 82 486 102 478 C135 464 185 450 220 440 Z" fill="url(#petal-shadow)"/>
+    <!-- Far right rear sweep -->
+    <path d="M375 435 C425 435 480 440 508 460 C524 472 518 486 498 478 C465 464 415 450 380 440 Z" fill="url(#petal-shadow)"/>
+  </g>
+
+  <!-- MIDGROUND FLORET PETALS (Recurving wavy straps) -->
+  <g id="petals-mid">
+    <!-- Left outer recurving cluster -->
+    <path d="M215 410 C160 380 115 365 85 390 C65 407 72 425 96 422 C132 418 175 415 210 415 Z" fill="url(#petal-main)"/>
+    <path d="M210 415 C150 405 105 415 78 445 C60 465 72 480 94 472 C125 460 170 442 208 425 Z" fill="url(#petal-highlight)"/>
+    <path d="M220 425 C180 445 135 478 112 515 C96 540 114 554 132 540 C156 520 192 480 224 435 Z" fill="url(#petal-main)"/>
+
+    <!-- Right outer recurving cluster -->
+    <path d="M385 410 C440 380 485 365 515 390 C535 407 528 425 504 422 C468 418 425 415 390 415 Z" fill="url(#petal-main)"/>
+    <path d="M390 415 C450 405 495 415 522 445 C540 465 528 480 506 472 C475 460 430 442 392 425 Z" fill="url(#petal-highlight)"/>
+    <path d="M380 425 C420 445 465 478 488 515 C504 540 486 554 468 540 C444 520 408 480 376 435 Z" fill="url(#petal-main)"/>
+  </g>
+
+  <!-- FOREGROUND FLORET PETALS (Intense, rippling ribbons) -->
+  <g id="petals-front">
+    <!-- Upper crown ribbons that reflex backwards -->
+    <path d="M280 410 C260 330 235 280 205 265 C185 255 174 272 190 286 C214 308 245 355 270 418 Z" fill="url(#petal-main)"/>
+    <path d="M320 410 C340 330 365 280 395 265 C415 255 426 272 410 286 C386 308 355 355 330 418 Z" fill="url(#petal-main)"/>
+
+    <!-- Center undulating ribbons -->
+    <path d="M295 435 C270 410 230 405 195 425 C172 438 174 456 198 454 C232 450 268 442 292 440 Z" fill="url(#petal-highlight)"/>
+    <path d="M305 435 C330 410 370 405 405 425 C428 438 426 456 402 454 C368 450 332 442 308 440 Z" fill="url(#petal-highlight)"/>
+
+    <!-- Center downward curl petals -->
+    <path d="M290 445 C270 475 250 515 235 550 C224 574 242 584 256 568 C274 546 292 505 298 450 Z" fill="url(#petal-main)"/>
+    <path d="M310 445 C330 475 350 515 365 550 C376 574 358 584 344 568 C326 546 308 505 302 450 Z" fill="url(#petal-main)"/>
+
+    <!-- Central bud knot / core -->
+    <ellipse cx="300" cy="432" rx="14" ry="10" fill="#4d070b"/>
+    <circle cx="300" cy="430" r="7" fill="#800e14"/>
+  </g>
+
+  <!-- STAMENS & FILAMENTS (The signature dramatic fountain of Lycoris radiata) -->
+  <!-- Background stamens (dimmer) -->
+  <g id="stamens-rear" stroke="url(#filament-dim)" stroke-width="1.2" stroke-linecap="round" fill="none">
+    <!-- Far left high arch -->
+    <path d="M280 430 C220 350 140 240 100 170 C75 125 90 95 125 102 C145 106 155 124 148 140"/>
+    <circle cx="120" cy="100" r="3.2" fill="#d97d64" stroke="#45080c" stroke-width="0.8"/>
+
+    <!-- High center left -->
+    <path d="M290 425 C250 300 200 170 195 105 C192 68 222 55 242 74 C254 86 250 105 236 118"/>
+    <circle cx="218" cy="62" r="3.2" fill="#d97d64" stroke="#45080c" stroke-width="0.8"/>
+
+    <!-- High center right -->
+    <path d="M310 425 C350 300 400 170 405 105 C408 68 378 55 358 74 C346 86 350 105 364 118"/>
+    <circle cx="382" cy="62" r="3.2" fill="#d97d64" stroke="#45080c" stroke-width="0.8"/>
+
+    <!-- Far right high arch -->
+    <path d="M320 430 C380 350 460 240 500 170 C525 125 510 95 475 102 C455 106 445 124 452 140"/>
+    <circle cx="480" cy="100" r="3.2" fill="#d97d64" stroke="#45080c" stroke-width="0.8"/>
+  </g>
+
+  <!-- Foreground stamens (Brilliant glowing crimson-scarlet with ivory pollen anthers) -->
+  <g id="stamens-front" stroke="url(#filament-grad)" stroke-width="1.8" stroke-linecap="round" fill="none">
+    <!-- 1. Leftmost low sweep -->
+    <path d="M285 435 C200 370 105 280 60 215 C32 175 42 140 76 142 C98 144 112 165 102 186"/>
+    <ellipse cx="68" cy="142" rx="4.5" ry="2.5" transform="rotate(-15 68 142)" fill="url(#anther-grad)" stroke="#690a10" stroke-width="0.8"/>
+
+    <!-- 2. Left high soaring fountain -->
+    <path d="M290 432 C230 330 150 200 135 130 C124 80 158 60 188 78 C206 90 208 114 195 130"/>
+    <ellipse cx="168" cy="68" rx="4.5" ry="2.5" transform="rotate(25 168 68)" fill="url(#anther-grad)" stroke="#690a10" stroke-width="0.8"/>
+
+    <!-- 3. Mid-left fountain jet -->
+    <path d="M295 430 C260 300 205 160 220 95 C230 52 268 45 288 70 C298 84 294 105 278 120"/>
+    <ellipse cx="265" cy="50" rx="4.5" ry="2.5" transform="rotate(40 265 50)" fill="url(#anther-grad)" stroke="#690a10" stroke-width="0.8"/>
+
+    <!-- 4. PISTIL / STYLE (The supreme center filament, soaring highest into the air) -->
+    <path d="M300 435 C298 280 292 140 296 60 C298 32 308 26 312 36 C316 48 312 65 304 80" stroke="#ff858c" stroke-width="1.9"/>
+    <!-- Stigma at apex -->
+    <circle cx="304" cy="30" r="3.2" fill="#fff5e6" stroke="#991017" stroke-width="0.8"/>
+    <circle cx="304" cy="30" r="1.5" fill="#c9161d"/>
+
+    <!-- 5. Mid-right fountain jet -->
+    <path d="M305 430 C340 300 395 160 380 95 C370 52 332 45 312 70 C302 84 306 105 322 120"/>
+    <ellipse cx="335" cy="50" rx="4.5" ry="2.5" transform="rotate(-40 335 50)" fill="url(#anther-grad)" stroke="#690a10" stroke-width="0.8"/>
+
+    <!-- 6. Right high soaring fountain -->
+    <path d="M310 432 C370 330 450 200 465 130 C476 80 442 60 412 78 C394 90 392 114 405 130"/>
+    <ellipse cx="432" cy="68" rx="4.5" ry="2.5" transform="rotate(-25 432 68)" fill="url(#anther-grad)" stroke="#690a10" stroke-width="0.8"/>
+
+    <!-- 7. Rightmost low sweep -->
+    <path d="M315 435 C400 370 495 280 540 215 C568 175 558 140 524 142 C502 144 488 165 498 186"/>
+    <ellipse cx="532" cy="142" rx="4.5" ry="2.5" transform="rotate(15 532 142)" fill="url(#anther-grad)" stroke="#690a10" stroke-width="0.8"/>
+  </g>
+
+  <!-- Delicate pollen flecks floating in air around the crown -->
+  <g id="pollen" fill="#f6f1e7" opacity="0.65">
+    <circle cx="152" cy="85" r="1.2"/>
+    <circle cx="180" cy="55" r="1.4"/>
+    <circle cx="245" cy="40" r="1.1"/>
+    <circle cx="280" cy="35" r="1.5"/>
+    <circle cx="328" cy="38" r="1.2"/>
+    <circle cx="360" cy="50" r="1.3"/>
+    <circle cx="420" cy="80" r="1.4"/>
+    <circle cx="450" cy="110" r="1.1"/>
+    <circle cx="85" cy="160" r="1.2"/>
+    <circle cx="515" cy="160" r="1.3"/>
+  </g>
+
+  <!-- Editorial label / typography watermark at bottom base -->
+  <g id="editorial-caption" opacity="0.45">
+    <text x="300" y="745" text-anchor="middle" font-family="'Federant', Georgia, serif" font-size="12" fill="#b8b19a" letter-spacing="0.32em">LYCORIS RADIATA</text>
+    <text x="300" y="764" text-anchor="middle" font-family="'Karla', 'Helvetica Neue', sans-serif" font-size="8" font-weight="700" fill="#c9161d" letter-spacing="0.24em">THE RED SPIDER LILY · PRESENCE</text>
+  </g>
+</svg>

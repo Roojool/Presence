@@ -1,255 +1,296 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex, nofollow">
-<title>Presence. — admin</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Federant&family=Karla:wght@300..700&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--paper:#f6f1e7;--paper2:#f1e9da;--sand:#e9dec9;--line:#dcd2bc;--ink2:#39362b;--mut:#7a7361;--crim:#c9161d;--sage:#6d7752;
-  --df:"Federant",Georgia,serif;--sans:"Karla","Helvetica Neue",sans-serif}
-body{background:var(--paper);color:var(--ink2);font:400 15px/1.6 var(--sans);min-height:100vh}
-.wrap{width:min(1100px,94vw);margin:0 auto;padding:36px 0 80px}
-h1{font:400 2rem var(--df)}h1 span{color:var(--crim)}
-h2{font:400 1.4rem var(--df);margin:40px 0 14px}
-.top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:10px}
-.muted{color:var(--mut)}
-button,input,select{font:inherit;color:inherit}
-.btn{background:var(--ink2);color:var(--paper);border:0;border-radius:999px;padding:.55em 1.2em;cursor:pointer;font-weight:700;font-size:.78rem;letter-spacing:.06em}
-.btn:hover{background:var(--crim)}
-.btn.ghost{background:transparent;color:var(--ink2);border:1px solid var(--line)}
-.btn.ghost:hover{border-color:var(--crim);color:var(--crim)}
-.btn.small{padding:.35em .9em;font-size:.72rem}
-.btn.ok{background:var(--sage)}
-input,select{background:#fff;border:1px solid var(--line);border-radius:10px;padding:.55em .8em}
-.card{background:var(--paper2);border:1px solid var(--line);border-radius:16px;padding:22px}
-#login{max-width:380px;margin:12vh auto 0;text-align:center}
-#login input{width:100%;margin:18px 0 12px}
-.err{color:var(--crim);min-height:1.4em;margin-top:8px;font-size:.9rem}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:20px}
-.stat b{display:block;font:400 2rem var(--df)}
-.stat span{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
-table{width:100%;border-collapse:collapse;font-size:.92rem}
-th{text-align:left;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);padding:8px;border-bottom:1px solid var(--line)}
-td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
-td .req{color:var(--mut);font-size:.85rem;max-width:280px;white-space:pre-wrap;word-break:break-word}
-.tag{display:inline-block;padding:.1em .7em;border-radius:999px;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-.tag.pending{background:#f3dfc4;color:#8a5a1c}
-.tag.confirmed{background:#dfe6cf;color:#4b5634}
-.tag.cancelled{background:#eee;color:#888}
-.tag.paid{background:#dfe6cf;color:#4b5634}
-.tag.awaiting{background:#f6d6d6;color:var(--crim)}
-.actions{display:flex;gap:6px;flex-wrap:wrap}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.empty{color:var(--mut);font-style:italic;padding:14px 8px}
-.scroll{overflow-x:auto}
-a{color:var(--crim)}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink2);color:var(--paper);padding:10px 22px;border-radius:999px;font-size:.85rem;opacity:0;transition:.3s;pointer-events:none}
-.toast.show{opacity:1}
-.hidden{display:none!important}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Presence. — Admin Portal</title>
+
+  <!-- Typography Preconnect: Federant (Display Serif) & Karla (Editorial Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Federant&family=Karla:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+
+  <!-- Shared Design Tokens & Admin Styles -->
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/assets/admin.css">
+
+  <!-- Shared Scripts & Admin Logic -->
+  <script defer src="/assets/site.js"></script>
+  <script defer src="/assets/admin.js"></script>
 </head>
-<body>
-<div class="wrap">
+<body data-page="admin">
 
-  <!-- LOGIN -->
-  <form id="login" class="card">
-    <h1>Presence<span>.</span> admin</h1>
-    <p class="muted">Type the ADMIN_PASSWORD from your .env file.</p>
-    <input id="pw" type="password" placeholder="password" autocomplete="current-password" required>
-    <button class="btn" type="submit">log in</button>
-    <p class="err" id="loginErr"></p>
-  </form>
+  <!-- Shared Site Header (Injected dynamically by site.js) -->
+  <header id="site-header" class="site-header"></header>
 
-  <!-- DASHBOARD -->
-  <div id="dash" class="hidden">
-    <div class="top">
-      <h1>Presence<span>.</span> admin</h1>
-      <div class="row">
-        <a class="btn ghost" href="/" target="_blank">open website ↗</a>
-        <button class="btn ghost" id="refresh">refresh</button>
-        <button class="btn ghost" id="logout">log out</button>
-      </div>
-    </div>
+  <!-- Main Content (Visible by default) -->
+  <main id="admin-main" class="admin-main" role="main">
 
-    <div class="stats">
-      <div class="card stat"><b id="sPending">–</b><span>waiting for you to confirm</span></div>
-      <div class="card stat"><b id="sConfirmed">–</b><span>confirmed, upcoming</span></div>
-      <div class="card stat"><b id="sWait">–</b><span>on the waitlist</span></div>
-    </div>
+    <!-- Screen Reader Status Live Region -->
+    <div id="adminLiveRegion" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
 
-    <div class="row" style="justify-content:space-between;margin-top:40px">
-      <h2 style="margin:0">Bookings</h2>
-      <label class="row muted">show
-        <select id="show">
-          <option value="upcoming">upcoming (not cancelled)</option>
-          <option value="all">everything, ever</option>
-        </select>
-      </label>
-    </div>
-    <div class="card scroll" style="margin-top:14px">
-      <table>
-        <thead><tr><th>when</th><th>who</th><th>practice / request</th><th>status</th><th>actions</th></tr></thead>
-        <tbody id="bookings"></tbody>
-      </table>
-    </div>
+    <!-- Fallback Toast Notification Element -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-    <h2>Waitlist</h2>
-    <div class="card scroll">
-      <table>
-        <thead><tr><th>wants</th><th>who</th><th>added</th><th></th></tr></thead>
-        <tbody id="waitlist"></tbody>
-      </table>
-    </div>
+    <!-- LOGIN SECTION -->
+    <div class="admin-login-wrap">
+      <form id="login" class="admin-login-card" novalidate>
+        <p class="eyebrow">Confidential Portal</p>
+        <h1>Presence<span class="crimson-dot">.</span> admin</h1>
+        <p class="admin-login-desc">Enter the administrative password from your configuration to manage bookings and candidate recruits.</p>
 
-    <h2>Block out time (holidays, busy days)</h2>
-    <div class="card">
-      <form class="row" id="blockForm">
-        <input type="date" id="bDate" required>
-        <select id="bTime"><option value="">the whole day</option></select>
-        <input id="bReason" placeholder="reason (only you see this)" maxlength="120" style="flex:1;min-width:180px">
-        <button class="btn" type="submit">block it</button>
+        <div class="field">
+          <label for="pw" class="label">Admin Password <span class="label-required">*</span></label>
+          <input id="pw" type="password" class="input" placeholder="••••••••" autocomplete="current-password" required>
+          <div class="field-error" id="loginErr" role="alert" aria-live="assertive"></div>
+        </div>
+
+        <button class="btn btn-primary btn-block" type="submit" id="loginBtn">Log in</button>
       </form>
-      <table style="margin-top:16px">
-        <tbody id="blocks"></tbody>
-      </table>
     </div>
-  </div>
-</div>
-<div class="toast" id="toast"></div>
 
-<script>
-const $ = id => document.getElementById(id);
-let token = sessionStorage.getItem('presenceAdmin') || '';
+    <!-- DASHBOARD SECTION -->
+    <div id="dash" class="admin-dash-wrap hidden">
 
-function toast(msg){ const t=$('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),3000); }
+      <!-- Admin Top Bar -->
+      <div class="admin-top-bar">
+        <div class="admin-top-left">
+          <h1>Presence<span class="crimson-dot">.</span> admin</h1>
+          <p class="admin-top-sub">Confidential Administration &middot; Active Session</p>
+        </div>
+        <div class="admin-top-actions">
+          <a class="btn btn-ghost btn-sm" href="/" target="_blank" rel="noopener noreferrer">Open website ↗</a>
+          <button type="button" class="btn btn-ghost btn-sm" id="refresh" aria-label="Refresh dashboard data">↻ Refresh</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="logout">Log out</button>
+        </div>
+      </div>
 
-async function api(path, opts={}){
-  const res = await fetch(path, {
-    ...opts,
-    headers: { 'Content-Type':'application/json', Authorization:'Bearer '+token, ...(opts.headers||{}) },
-    body: opts.body ? JSON.stringify(opts.body) : undefined,
-  });
-  const data = await res.json().catch(()=>({}));
-  if (res.status === 401 && path !== '/api/admin/login') { showLogin(); throw new Error(data.error||'please log in'); }
-  if (!res.ok) throw new Error(data.error || 'something went wrong');
-  return data;
-}
+      <!-- Independent Counters: Stats Grid (GET /api/admin/stats) -->
+      <div class="admin-stats-grid" role="region" aria-label="Dashboard Key Statistics">
+        <div class="stat-card">
+          <span class="stat-num" id="sPending">–</span>
+          <span class="stat-label">Pending Confirmation</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="sConfirmed">–</span>
+          <span class="stat-label">Confirmed Upcoming</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="sWait">–</span>
+          <span class="stat-label">Priority Waitlist</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="sApps">–</span>
+          <span class="stat-label">New Applications</span>
+        </div>
+      </div>
 
-function el(tag, props={}, ...kids){
-  const e = document.createElement(tag);
-  for (const [k,v] of Object.entries(props)) {
-    if (k === 'class') e.className = v;
-    else if (k.startsWith('on')) e.addEventListener(k.slice(2), v);
-    else e.setAttribute(k, v);
-  }
-  for (const k of kids) if (k != null) e.append(k);
-  return e;
-}
+      <!-- Work Area Navigation Tabs -->
+      <nav class="admin-tabs-nav" role="tablist" aria-label="Administrative Work Areas">
+        <button type="button" role="tab" id="tabBookings" class="admin-tab-btn is-active" aria-selected="true" aria-controls="panelBookings">
+          Bookings &amp; Schedule
+        </button>
+        <button type="button" role="tab" id="tabApplications" class="admin-tab-btn" aria-selected="false" aria-controls="panelApplications">
+          Applications <span class="tab-badge" id="appTabBadge">0</span>
+        </button>
+      </nav>
 
-const WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-function prettyDate(iso){
-  const [y,m,d]=iso.split('-').map(Number);
-  const dt=new Date(y,m-1,d);
-  return WD[dt.getDay()]+' '+d+' '+dt.toLocaleString('en-GB',{month:'short'})+' '+y;
-}
-function whatsappLink(phone, text){
-  let digits = phone.replace(/\D/g,'');
-  if (digits.length === 10) digits = '91' + digits; // Indian number without country code
-  return 'https://wa.me/' + digits + '?text=' + encodeURIComponent(text);
-}
+      <!-- WORK AREA 1: Bookings & Schedule -->
+      <div id="panelBookings" role="tabpanel" aria-labelledby="tabBookings">
 
-function showLogin(){ token=''; sessionStorage.removeItem('presenceAdmin'); $('dash').classList.add('hidden'); $('login').classList.remove('hidden'); }
-function showDash(){ $('login').classList.add('hidden'); $('dash').classList.remove('hidden'); loadAll(); }
+        <!-- Bookings Section -->
+        <section class="admin-section" aria-labelledby="bookingsHeading">
+          <div class="admin-section-head">
+            <h2 id="bookingsHeading">Bookings</h2>
+            <div class="filter-inline">
+              <label for="show" class="label">Show:</label>
+              <select id="show" class="select">
+                <option value="upcoming">Upcoming (not cancelled)</option>
+                <option value="all">Everything, ever</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-card">
+            <div class="table-scroll">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th scope="col">When</th>
+                    <th scope="col">Who</th>
+                    <th scope="col">Practice / Request</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="bookings">
+                  <tr><td colspan="5" class="table-loading">Loading bookings...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
 
-$('login').addEventListener('submit', async e => {
-  e.preventDefault(); $('loginErr').textContent='';
-  try {
-    const { token: t } = await api('/api/admin/login', { method:'POST', body:{ password:$('pw').value } });
-    token = t; sessionStorage.setItem('presenceAdmin', t); $('pw').value=''; showDash();
-  } catch (err) { $('loginErr').textContent = err.message; }
-});
-$('logout').addEventListener('click', async () => { try{ await api('/api/admin/logout',{method:'POST'}); }catch{} showLogin(); });
-$('refresh').addEventListener('click', () => { loadAll(); toast('refreshed'); });
-$('show').addEventListener('change', loadBookings);
+        <!-- Waitlist Section -->
+        <section class="admin-section" aria-labelledby="waitlistHeading">
+          <div class="admin-section-head">
+            <h2 id="waitlistHeading">Waitlist</h2>
+          </div>
+          <div class="table-card">
+            <div class="table-scroll">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Wants</th>
+                    <th scope="col">Who</th>
+                    <th scope="col">Added</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="waitlist">
+                  <tr><td colspan="4" class="table-loading">Loading waitlist...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
 
-async function loadAll(){ await Promise.all([loadBookings(), loadWaitlist(), loadBlocks()]).catch(err=>toast(err.message)); }
+        <!-- Blocks Section -->
+        <section class="admin-section" aria-labelledby="blocksHeading">
+          <div class="admin-section-head">
+            <h2 id="blocksHeading">Block Out Time (Holidays, Busy Days)</h2>
+          </div>
+          <div class="block-form-card">
+            <form id="blockForm" class="block-form-row">
+              <div class="field">
+                <label for="bDate" class="label">Date <span class="label-required">*</span></label>
+                <input type="date" id="bDate" class="input" required>
+              </div>
+              <div class="field">
+                <label for="bTime" class="label">Hour Slot</label>
+                <select id="bTime" class="select">
+                  <option value="">The whole day</option>
+                </select>
+              </div>
+              <div class="field" style="flex:2;min-width:200px;">
+                <label for="bReason" class="label">Reason (Private)</label>
+                <input id="bReason" type="text" class="input" placeholder="e.g. Travel / Studio maintenance" maxlength="120">
+              </div>
+              <div class="field field-btn">
+                <button class="btn btn-primary btn-sm" type="submit" id="blockSubmitBtn">Block it</button>
+              </div>
+            </form>
 
-async function loadBookings(){
-  const { bookings } = await api('/api/admin/bookings?show=' + $('show').value);
-  const body = $('bookings'); body.replaceChildren();
-  if (!bookings.length) body.append(el('tr',{}, el('td',{class:'empty',colspan:'5'}, 'No bookings yet. They will appear here the moment someone books.')));
-  let pending=0, confirmed=0;
-  for (const b of bookings){
-    if (b.status==='pending') pending++;
-    if (b.status==='confirmed') confirmed++;
-    const setStatus = status => async () => {
-      try { await api('/api/admin/bookings/'+b.id, { method:'PATCH', body:{ status } }); toast('marked '+status); loadBookings(); }
-      catch (err) { toast(err.message); }
-    };
-    const msg = `Hi ${b.name}! This is Presence. Your hour on ${prettyDate(b.date)} at ${b.time} (${b.practice}) is confirmed. Reference ${b.ref}.`;
-    body.append(el('tr',{},
-      el('td',{}, el('b',{}, prettyDate(b.date)), el('br'), b.time, el('br'), el('span',{class:'muted'}, b.ref)),
-      el('td',{}, b.name, el('br'), el('a',{href:whatsappLink(b.contact,msg),target:'_blank',rel:'noopener'}, b.contact+' (WhatsApp)')),
-      el('td',{}, b.practice, el('div',{class:'req'}, b.request || '—')),
-      el('td',{}, el('span',{class:'tag '+b.status}, b.status),
-        b.payment_status!=='none' ? el('div',{style:'margin-top:6px'}, el('span',{class:'tag '+b.payment_status}, b.payment_status==='paid'?'deposit paid':'not paid')) : null),
-      el('td',{}, el('div',{class:'actions'},
-        b.status!=='confirmed' ? el('button',{class:'btn small ok',onclick:setStatus('confirmed')}, 'confirm') : null,
-        b.status!=='cancelled' ? el('button',{class:'btn small ghost',onclick:setStatus('cancelled')}, 'cancel') : null,
-        b.status==='cancelled' ? el('button',{class:'btn small ghost',onclick:async()=>{
-          if(!confirm('Delete this booking forever?'))return;
-          try{ await api('/api/admin/bookings/'+b.id,{method:'DELETE'}); loadBookings(); }catch(err){ toast(err.message); }
-        }}, 'delete') : null,
-      )),
-    ));
-  }
-  if ($('show').value==='upcoming'){ $('sPending').textContent=pending; $('sConfirmed').textContent=confirmed; }
-}
+            <div class="table-scroll" style="margin-top: 14px;">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Date &amp; Time</th>
+                    <th scope="col">Reason</th>
+                    <th scope="col" class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="blocks">
+                  <tr><td colspan="3" class="table-loading">Loading blocks...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
 
-async function loadWaitlist(){
-  const { waitlist } = await api('/api/admin/waitlist');
-  $('sWait').textContent = waitlist.length;
-  const body = $('waitlist'); body.replaceChildren();
-  if (!waitlist.length) body.append(el('tr',{}, el('td',{class:'empty',colspan:'4'}, 'Nobody on the waitlist.')));
-  for (const w of waitlist){
-    const msg = `Hi ${w.name}! This is Presence. Good news — ${prettyDate(w.date)} at ${w.time} has opened up. Want it?`;
-    body.append(el('tr',{},
-      el('td',{}, prettyDate(w.date)+' · '+w.time),
-      el('td',{}, w.name, el('br'), el('a',{href:whatsappLink(w.contact,msg),target:'_blank',rel:'noopener'}, w.contact+' (WhatsApp)')),
-      el('td',{class:'muted'}, w.created_at),
-      el('td',{}, el('button',{class:'btn small ghost',onclick:async()=>{ await api('/api/admin/waitlist/'+w.id,{method:'DELETE'}).catch(err=>toast(err.message)); loadWaitlist(); }}, 'remove')),
-    ));
-  }
-}
+      </div>
 
-async function loadBlocks(){
-  const { blocks, slotTimes } = await api('/api/admin/blocks');
-  const sel = $('bTime');
-  if (sel.options.length === 1) for (const t of slotTimes) sel.append(el('option',{value:t}, 'only '+t));
-  const body = $('blocks'); body.replaceChildren();
-  if (!blocks.length) body.append(el('tr',{}, el('td',{class:'empty'}, 'Nothing blocked. (Sundays are always closed.)')));
-  for (const b of blocks){
-    body.append(el('tr',{},
-      el('td',{}, el('b',{}, prettyDate(b.date)), ' · ', b.time || 'whole day', b.reason ? el('span',{class:'muted'}, ' — '+b.reason) : null),
-      el('td',{style:'text-align:right'}, el('button',{class:'btn small ghost',onclick:async()=>{ await api('/api/admin/blocks/'+b.id,{method:'DELETE'}).catch(err=>toast(err.message)); loadBlocks(); }}, 'unblock')),
-    ));
-  }
-}
+      <!-- WORK AREA 2: Candidate Applications (Fashion & Brand Recruits) -->
+      <div id="panelApplications" role="tabpanel" aria-labelledby="tabApplications" class="hidden">
 
-$('blockForm').addEventListener('submit', async e => {
-  e.preventDefault();
-  try {
-    await api('/api/admin/blocks', { method:'POST', body:{ date:$('bDate').value, time:$('bTime').value, reason:$('bReason').value } });
-    $('blockForm').reset(); toast('blocked'); loadBlocks();
-  } catch (err) { toast(err.message); }
-});
+        <section class="admin-section" aria-labelledby="appsHeading">
+          <div class="admin-section-head">
+            <div>
+              <h2 id="appsHeading">Candidate Applications</h2>
+              <p class="lede" style="margin-top:4px;font-size:0.95rem;">Review fashion &amp; brand recruit submissions, Instagram profiles, and application review consent records.</p>
+            </div>
+          </div>
 
-if (token) showDash();
-</script>
+          <!-- Search & Filter Controls -->
+          <form id="appFilterForm" class="app-filter-form" role="search">
+            <div class="field app-search-field">
+              <label for="appSearch" class="label">Search Candidates</label>
+              <input type="search" id="appSearch" class="input" placeholder="Search by name, email, phone, city, or ref...">
+            </div>
+            <div class="field app-status-field">
+              <label for="appStatusFilter" class="label">Status</label>
+              <select id="appStatusFilter" class="select">
+                <option value="">All statuses</option>
+                <option value="new">New</option>
+                <option value="reviewing">Reviewing</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="rejected">Rejected</option>
+              </select>
+            </div>
+            <div class="app-filter-actions">
+              <button type="submit" class="btn btn-secondary btn-sm" id="appFilterBtn">Filter</button>
+              <button type="button" class="btn btn-ghost btn-sm" id="appResetBtn">Reset</button>
+            </div>
+          </form>
+
+          <!-- Applications Table Card -->
+          <div class="table-card">
+            <div class="app-results-meta">
+              <span id="appResultsCount" class="results-count">Loading applications...</span>
+            </div>
+            <div class="table-scroll">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Ref</th>
+                    <th scope="col">Candidate</th>
+                    <th scope="col">Contact</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Follow-up</th>
+                    <th scope="col">Submitted</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="applications">
+                  <tr><td colspan="7" class="table-loading">Loading candidate applications...</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Server Pagination Controls (50 per page) -->
+            <div class="app-pagination" id="appPagination">
+              <button type="button" class="btn btn-ghost btn-sm" id="appPrevBtn" disabled>&larr; Previous</button>
+              <span id="appPageInfo" class="page-info">Page 1 of 1</span>
+              <button type="button" class="btn btn-ghost btn-sm" id="appNextBtn" disabled>Next &rarr;</button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+    </div>
+
+    <!-- Candidate Profile Review Accessible Dialog -->
+    <dialog id="appDetailDialog" class="admin-dialog" aria-labelledby="detailDialogHeading">
+      <div class="dialog-header">
+        <h3 id="detailDialogHeading">Candidate Profile Review</h3>
+        <button type="button" class="dialog-close-btn" id="closeDetailModal" aria-label="Close candidate profile">&times;</button>
+      </div>
+      <div class="dialog-body" id="detailModalContent"></div>
+    </dialog>
+
+    <!-- Large Photo Lightbox Accessible Dialog -->
+    <dialog id="photoLightboxDialog" class="admin-dialog photo-dialog" aria-label="Full resolution candidate photo view">
+      <div class="photo-dialog-content">
+        <button type="button" class="lightbox-close-btn" id="closeLightbox" aria-label="Close photo view">&times;</button>
+        <img id="lightboxImg" class="lightbox-img" alt="Enlarged candidate photo">
+      </div>
+    </dialog>
+
+  </main>
+
+  <!-- Shared Site Footer (Injected dynamically by site.js) -->
+  <footer id="site-footer" class="site-footer"></footer>
+
 </body>
 </html>

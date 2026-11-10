@@ -1,0 +1,597 @@
+/* ==========================================================================
+   Presence. — Fashion & Brand Modeling Application Styles (Worker E)
+   Polished Dark Floral Editorial Aesthetics
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Compact Intro Section (Ensures form begins well before 600px/650px)
+   -------------------------------------------------------------------------- */
+.apply-intro-section {
+  padding: clamp(16px, 3vh, 26px) 0 8px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: radial-gradient(circle at 85% 15%, rgba(201, 22, 29, 0.06) 0%, transparent 60%);
+}
+
+.apply-intro-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.apply-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3.8vw, 2.7rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--text-ivory);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.apply-title em {
+  font-style: italic;
+  color: var(--crimson-bright);
+}
+
+.apply-lede {
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  color: var(--text-bone);
+  line-height: 1.5;
+  margin: 2px 0 6px;
+}
+
+.apply-meta-pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.pill-item {
+  color: var(--text-bone);
+}
+
+.pill-dot {
+  color: var(--crimson);
+}
+
+/* --------------------------------------------------------------------------
+   2. Workspace Grid Layout (Form & Sidebar)
+   -------------------------------------------------------------------------- */
+.apply-stage-section {
+  padding: clamp(16px, 3vh, 32px) 0 60px;
+}
+
+.apply-status-banner {
+  margin-bottom: 20px;
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  background: rgba(201, 138, 99, 0.12);
+  border: 1px solid var(--amber);
+  color: var(--text-ivory);
+}
+
+.apply-status-banner .btn-retry-config {
+  margin-left: 12px;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  color: var(--text-ivory);
+  cursor: pointer;
+}
+
+.apply-workspace-grid {
+  display: grid;
+  gap: clamp(24px, 4vw, 44px);
+  align-items: start;
+}
+
+@media (min-width: 960px) {
+  .apply-workspace-grid {
+    grid-template-columns: minmax(0, 1.35fr) minmax(310px, 0.85fr);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. Form Styling
+   -------------------------------------------------------------------------- */
+.apply-form-card {
+  padding: clamp(20px, 3.5vw, 36px);
+  background: var(--bg-cherry);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+.form-header {
+  margin-bottom: 22px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 16px;
+}
+
+.form-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 2.8vw, 1.9rem);
+  font-weight: 400;
+  color: var(--text-ivory);
+  margin: 0 0 4px;
+}
+
+.form-title em {
+  font-style: italic;
+  color: var(--crimson-bright);
+}
+
+.form-lede {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+}
+
+.field-row {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 580px) {
+  .field-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.field-optional {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  text-transform: none;
+  letter-spacing: normal;
+  margin-left: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   4. Dropzone & Previews
+   -------------------------------------------------------------------------- */
+.dropzone {
+  position: relative;
+  border: 1.5px dashed var(--border-medium);
+  background: var(--bg-surface);
+  border-radius: var(--radius-sm);
+  padding: 24px 16px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.dropzone:focus-visible {
+  border-color: var(--crimson-bright);
+  box-shadow: 0 0 0 3px var(--crimson-glow);
+}
+
+.dropzone.is-dragover {
+  border-color: var(--crimson-bright);
+  background: var(--bg-surface-hover);
+  box-shadow: 0 0 20px var(--crimson-glow);
+}
+
+.dropzone.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.dropzone-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.dropzone-icon {
+  width: 32px;
+  height: 32px;
+  color: var(--crimson);
+}
+
+.dropzone-text {
+  font-family: var(--font-serif);
+  font-size: 0.98rem;
+  color: var(--text-ivory);
+}
+
+.dropzone-sub {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.dropzone-previews {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.photo-thumb-card {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border-medium);
+  background: #0f0709;
+}
+
+.photo-thumb-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-thumb-remove-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(7, 5, 6, 0.88);
+  color: var(--text-ivory);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  z-index: 2;
+}
+
+.photo-thumb-remove-btn:hover,
+.photo-thumb-remove-btn:focus-visible {
+  background: var(--crimson);
+  outline: none;
+}
+
+.photo-thumb-remove-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.photo-thumb-meta {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(7, 5, 6, 0.92) 100%);
+  padding: 5px 6px 3px;
+  font-size: 0.65rem;
+  color: var(--text-bone);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   5. Progress Bar & Alert States
+   -------------------------------------------------------------------------- */
+.apply-progress-wrap {
+  margin-bottom: 20px;
+  padding: 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-cherry);
+  border-radius: var(--radius-sm);
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--text-bone);
+  margin-bottom: 6px;
+}
+
+.progress-bar-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--crimson) 0%, var(--crimson-bright) 100%);
+  border-radius: var(--radius-pill);
+  transition: width 0.2s ease;
+}
+
+.apply-form-alert {
+  margin-bottom: 18px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.form-actions {
+  margin-top: 20px;
+}
+
+/* --------------------------------------------------------------------------
+   6. Success Card
+   -------------------------------------------------------------------------- */
+.apply-success-card {
+  padding: clamp(24px, 4vw, 40px);
+  background: var(--bg-cherry);
+  border: 1px solid var(--border-cherry);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lift);
+}
+
+.success-header {
+  margin-bottom: 12px;
+}
+
+.success-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+  font-weight: 400;
+  color: var(--text-ivory);
+  margin-top: 8px;
+}
+
+.success-title em {
+  font-style: italic;
+  color: var(--sage);
+}
+
+.success-intro {
+  font-size: 0.92rem;
+  color: var(--text-bone);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.ref-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ref-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--crimson);
+}
+
+.ref-value {
+  font-family: monospace;
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+  color: var(--text-ivory);
+}
+
+.receipt-note {
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.86rem;
+  line-height: 1.55;
+  margin-bottom: 22px;
+  border-left: 3px solid;
+}
+
+.receipt-note.status-sent {
+  background: rgba(117, 131, 92, 0.14);
+  border-color: var(--sage);
+  color: var(--text-ivory);
+}
+
+.receipt-note.status-pending {
+  background: rgba(201, 138, 99, 0.14);
+  border-color: var(--amber);
+  color: var(--text-ivory);
+}
+
+.receipt-note.status-failed {
+  background: rgba(201, 22, 29, 0.14);
+  border-color: var(--crimson);
+  color: var(--text-ivory);
+}
+
+.success-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   7. Sidebar (Requirements, LinkedIn Panel & Botanical Art)
+   -------------------------------------------------------------------------- */
+.apply-sidebar-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar-card {
+  padding: clamp(20px, 3vw, 28px);
+  border-radius: var(--radius-md);
+}
+
+.card-tag {
+  display: inline-block;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--crimson);
+  margin-bottom: 8px;
+}
+
+.sidebar-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: var(--text-ivory);
+  margin-bottom: 12px;
+}
+
+.sidebar-title em {
+  font-style: italic;
+  color: var(--crimson-bright);
+}
+
+.sidebar-text {
+  font-size: 0.86rem;
+  color: var(--text-bone);
+  line-height: 1.6;
+}
+
+.editorial-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.84rem;
+  color: var(--text-bone);
+  line-height: 1.55;
+}
+
+.editorial-list strong {
+  color: var(--text-ivory);
+}
+
+/* LinkedIn Card */
+.linkedin-card {
+  background: var(--bg-cherry);
+  border: 1px solid var(--border-cherry);
+}
+
+.linkedin-qr-frame {
+  margin: 16px 0 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.linkedin-qr-inner {
+  padding: 10px;
+  background: #faf6ee;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+}
+
+.linkedin-qr-img {
+  display: block;
+  width: 148px;
+  height: 148px;
+}
+
+.qr-caption {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.linkedin-cta-wrap {
+  margin-top: 4px;
+}
+
+.linkedin-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+}
+
+/* Botanical Art Card */
+.sidebar-art-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  text-align: center;
+  padding: 16px;
+}
+
+.art-plate-inner {
+  display: flex;
+  justify-content: center;
+}
+
+.art-plate-img {
+  max-width: 130px;
+  height: auto;
+  opacity: 0.65;
+}
+
+.applicant-card { text-align: left; padding: 28px; overflow: hidden; }
+.applicant-card .art-plate-img { opacity: .8; }
+.applicant-summary { display: grid; gap: 12px; margin-top: 18px; }
+.applicant-summary div { display: flex; justify-content: space-between; gap: 18px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 10px; }
+.applicant-summary dt { color: var(--text-muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; }
+.applicant-summary dd { color: var(--text-ivory); text-align: right; overflow-wrap: anywhere; }
+.applicant-preview-note { margin-top: 16px; font-size: .75rem; color: var(--text-muted); }
+
+/* --------------------------------------------------------------------------
+   8. Reduced Motion & Mobile Touch Targets
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .photo-thumb-remove-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+
+  .btn {
+    min-height: 48px;
+  }
+
+  .input,
+  .textarea {
+    font-size: 16px; /* Prevents auto-zoom on mobile */
+  }
+}

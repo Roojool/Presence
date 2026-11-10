@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book an Hour — Presence.</title>
+  <meta name="description" content="Reserve a bespoke hour with Presence. Companionship, active listening, wedding plus-one, and discrete accompaniment for ladies.">
+
+  <!-- Typography: Federant (Display Serif) & Karla (Editorial Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Federant&family=Karla:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+
+  <!-- Shared Site Styles & Script Contract -->
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/assets/book.css">
+  <script src="/assets/site.js" defer></script>
+  <script src="/assets/book.js" defer></script>
+</head>
+<body data-page="book">
+
+  <!-- Injected Header by site.js contract -->
+  <header id="site-header" class="site-header"></header>
+
+  <main id="main-content" class="booking-main" role="main">
+
+    <!-- Hero / Introduction Section -->
+    <section class="section-sm booking-hero" aria-labelledby="booking-heading">
+      <div class="container">
+        <div class="booking-hero-grid">
+          <div class="booking-hero-copy">
+            <p class="eyebrow">
+              <span class="eyebrow-mark">
+                <img src="/assets/lily-mark.svg" alt="" width="18" height="18" aria-hidden="true">
+              </span>
+              <span>01 · The Companion Reservation</span>
+            </p>
+            <h1 id="booking-heading" class="booking-title">Reserve an <em>hour.</em></h1>
+            <p class="lede">
+              One sixty-minute block. One attentive, discrete gentleman. Entirely on your side for weddings, wardrobe curations, deep listening, or quiet emergencies.
+            </p>
+
+            <div class="booking-meta-strip" role="region" aria-label="Pricing and Policy Summary">
+              <div class="meta-item">
+                <span class="meta-label">Hourly Rate</span>
+                <span class="meta-val" id="heroPriceDisplay">Loading rate…</span>
+              </div>
+              <div class="meta-item-divider" aria-hidden="true"></div>
+              <div class="meta-item">
+                <span class="meta-label">Hold Policy</span>
+                <span class="meta-val" id="heroDepositDisplay">Checking terms…</span>
+              </div>
+              <div class="meta-item-divider" aria-hidden="true"></div>
+              <div class="meta-item">
+                <span class="meta-label">Edition</span>
+                <span class="meta-val">Ladies only</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="booking-hero-art" aria-hidden="true">
+            <div class="botanical-frame">
+              <img src="/assets/lily-art.svg" alt="" class="botanical-art" width="380" height="480">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Booking Stage: Compact Date Strip & Day's Slots alongside Form -->
+    <section id="week" class="section-sm booking-stage-section" aria-labelledby="stage-heading">
+      <div class="container">
+        <div class="section-head text-center">
+          <p class="eyebrow">02 · Choose Your Hour</p>
+          <h2 id="stage-heading">Select a Date &amp; <em>Hour.</em></h2>
+          <p class="lede mx-auto">
+            Browse upcoming days on the date strip. Choose an open slot to hold, or join the priority waitlist if already claimed.
+          </p>
+        </div>
+
+        <!-- Global Alert / Retry banner (hidden by default) -->
+        <div id="calendarAlert" class="notice notice-warn calendar-alert" role="alert" hidden>
+          <span class="notice-icon" aria-hidden="true">⚠️</span>
+          <div class="notice-text">
+            <strong id="calendarAlertTitle">Unable to reach the calendar.</strong>
+            <span id="calendarAlertMsg">Please check your connection or retry loading the schedule.</span>
+          </div>
+          <button type="button" class="btn btn-sm btn-secondary" id="calendarRetryBtn">Retry Calendar</button>
+        </div>
+
+        <!-- Compact Date Strip Selector -->
+        <div class="date-strip-wrapper" role="region" aria-label="Date strip navigation">
+          <div class="date-strip-header">
+            <div class="date-strip-title-wrap">
+              <span class="date-strip-title" id="dateStripMonth">Calendar Days</span>
+              <span class="date-strip-sub" id="dateStripTzNote">Times in India Standard Time</span>
+            </div>
+
+            <div class="date-strip-controls">
+              <button type="button" class="strip-nav-btn" id="stripPrevBtn" aria-label="Previous day" title="Previous day">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+              </button>
+              <button type="button" class="strip-nav-btn" id="stripNextBtn" aria-label="Next day" title="Next day">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+              <div class="date-picker-shortcut">
+                <label for="dateJumpInput" class="visually-hidden">Jump to specific date</label>
+                <input type="date" id="dateJumpInput" class="input input-sm date-jump-input" aria-label="Jump to date in calendar">
+              </div>
+            </div>
+          </div>
+
+          <!-- Horizontal Date Strip List -->
+          <div class="date-strip-scroll-area">
+            <div class="date-strip" id="dateStrip" role="tablist" aria-label="Available dates">
+              <!-- Rendered dynamically by book.js -->
+              <div class="date-strip-placeholder">Loading available dates…</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Workspace Layout: Selected Day Slots alongside Form on Desktop / Above on Mobile -->
+        <div class="booking-workspace">
+
+          <!-- Left Column / Top Mobile: ONE Selected Day Slots -->
+          <div class="slots-column" id="slotsColumn" aria-labelledby="selectedDayTitle">
+            <div class="slots-card card card-cherry">
+              <div class="slots-header">
+                <div>
+                  <span class="slots-kicker" id="slotsDayKicker">Selected Day</span>
+                  <h3 class="slots-day-title" id="selectedDayTitle">Checking availability…</h3>
+                </div>
+                <div id="dayBadgeContainer">
+                  <span class="tag badge-bone" id="dayStatusBadge">Loading</span>
+                </div>
+              </div>
+
+              <!-- Live Slots List or Closed Message -->
+              <div class="slots-body" id="slotsBody" aria-live="polite">
+                <div class="slots-loading">
+                  <div class="spinner" aria-hidden="true"></div>
+                  <p>Consulting the gentleman's journal…</p>
+                </div>
+              </div>
+
+              <!-- Flexible Hour Banner -->
+              <div class="flexible-slot-card" id="flexibleSlotCard">
+                <div class="flexible-slot-info">
+                  <span class="flexible-slot-tag">Adaptable Hour</span>
+                  <h4 class="flexible-slot-title">Flexible Time</h4>
+                  <p class="flexible-slot-note">Need an hour outside standard intervals? Select flexible, and we will coordinate on WhatsApp.</p>
+                </div>
+                <button type="button" class="btn btn-sm btn-secondary" id="reserveFlexibleBtn">
+                  Select Flexible
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column / Bottom Mobile: Booking Form -->
+          <div class="form-column" id="book">
+            <div class="booking-form-card card card-editorial">
+              <div class="booking-form-header">
+                <span class="eyebrow">03 · Secure Your Slot</span>
+                <h3 class="form-title">Reservation Details</h3>
+                <div class="current-selection-banner" id="currentSelectionBanner" aria-live="polite">
+                  <span class="selection-indicator-dot" aria-hidden="true"></span>
+                  <span class="selection-text" id="selectionSummary">Select a date and hour to begin</span>
+                </div>
+              </div>
+
+              <form id="bookForm" class="book-form" novalidate autocomplete="on">
+                <!-- Honeypot spam trap: strictly off-screen for real users, bots fill it -->
+                <div class="hp" aria-hidden="true">
+                  <label for="f-website">Do not fill this</label>
+                  <input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off">
+                </div>
+
+                <!-- Client Name & WhatsApp Contact -->
+                <div class="form-grid-2">
+                  <div class="field" id="field-name">
+                    <label for="f-name" class="label">
+                      Your Good Name <span class="req" aria-hidden="true">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="f-name"
+                      name="name"
+                      class="input"
+                      placeholder="e.g. Ritika Sen"
+                      autocomplete="name"
+                      required
+                      aria-required="true"
+                      aria-describedby="f-name-err"
+                    >
+                    <div id="f-name-err" class="field-error" role="alert"></div>
+                  </div>
+
+                  <div class="field" id="field-contact">
+                    <label for="f-contact" class="label">
+                      WhatsApp / Phone <span class="req" aria-hidden="true">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      id="f-contact"
+                      name="contact"
+                      class="input"
+                      placeholder="+91 ····· ·····"
+                      autocomplete="tel"
+                      required
+                      aria-required="true"
+                      aria-describedby="f-contact-err"
+                    >
+                    <div id="f-contact-err" class="field-error" role="alert"></div>
+                  </div>
+                </div>
+
+                <!-- Date & Hour Selectors (Synchronized with Date Strip & Slots) -->
+                <div class="form-grid-2">
+                  <div class="field" id="field-date">
+                    <label for="f-date" class="label">
+                      The Date <span class="req" aria-hidden="true">*</span>
+                    </label>
+                    <input
+                      type="date"
+                      id="f-date"
+                      name="date"
+                      class="input"
+                      required
+                      aria-required="true"
+                      aria-describedby="f-date-err"
+                    >
+                    <div id="f-date-err" class="field-error" role="alert"></div>
+                  </div>
+
+                  <div class="field" id="field-time">
+                    <label for="f-time" class="label">
+                      The Hour <span class="req" aria-hidden="true">*</span>
+                    </label>
+                    <div class="select-container">
+                      <select
+                        id="f-time"
+                        name="time"
+                        class="select"
+                        required
+                        aria-required="true"
+                        aria-describedby="f-time-err"
+                      >
+                        <option value="">Choose an hour</option>
+                        <option value="flexible">flexible · you decide, I adapt</option>
+                      </select>
+                    </div>
+                    <div id="f-time-err" class="field-error" role="alert"></div>
+                  </div>
+                </div>
+
+                <!-- Practice Selection -->
+                <div class="field" id="field-practice">
+                  <label for="f-practice" class="label">
+                    The Practice <span class="req" aria-hidden="true">*</span>
+                  </label>
+                  <div class="select-container">
+                    <select
+                      id="f-practice"
+                      name="practice"
+                      class="select"
+                      required
+                      aria-required="true"
+                      aria-describedby="f-practice-err"
+                    >
+                      <option value="">Select a practice</option>
+                    </select>
+                  </div>
+                  <div id="f-practice-err" class="field-error" role="alert"></div>
+                </div>
+
+                <!-- Mission / Special Request -->
+                <div class="field" id="field-req">
+                  <label for="f-req" class="label">
+                    What shall we do with this hour? <span class="field-hint-inline">(Optional)</span>
+                  </label>
+                  <textarea
+                    id="f-req"
+                    name="request"
+                    class="textarea"
+                    rows="3"
+                    maxlength="1000"
+                    placeholder="Tell me what you have in mind — an engagement dinner, quiet company, shopping assistance, or a safe ear for gossip."
+                  ></textarea>
+                  <span class="field-hint">Anything wholesome and legal. Boundaries respected always.</span>
+                </div>
+
+                <!-- Ladies-Only Solemn Confirmation -->
+                <div class="field checkbox-field" id="field-lady">
+                  <label class="checkbox-label" for="f-lady">
+                    <input
+                      type="checkbox"
+                      id="f-lady"
+                      name="lady"
+                      required
+                      aria-required="true"
+                      aria-describedby="f-lady-err"
+                    >
+                    <span class="checkbox-text">
+                      I confirm I am a woman booking for myself — and I understand the ladies-only policy is strictly observed. <span class="req" aria-hidden="true">*</span>
+                    </span>
+                  </label>
+                  <div id="f-lady-err" class="field-error" role="alert"></div>
+                </div>
+
+                <!-- Price and Deposit Summary Breakdown -->
+                <div class="pricing-card" id="pricingCard" role="region" aria-label="Fee details">
+                  <div class="pricing-row">
+                    <span class="pricing-title">Fee for sixty minutes</span>
+                    <strong class="pricing-num" id="formPriceTotal">—</strong>
+                  </div>
+                  <div class="pricing-row pricing-subrow" id="formDepositRow">
+                    <span class="pricing-subtext" id="formDepositText">Loading fee schedule…</span>
+                    <span class="badge badge-bone" id="formDepositBadge">Checking…</span>
+                  </div>
+                </div>
+
+                <!-- Submit Action -->
+                <div class="form-submit-row">
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-block btn-lg"
+                    id="submitBtn"
+                    disabled
+                  >
+                    <span class="btn-text" id="submitBtnText">Loading schedule…</span>
+                    <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                  </button>
+
+                  <p class="submit-fineprint" id="submitFineprint">
+                    Connecting to server… Fee schedule and terms will appear once verified.
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Accessible Native Confirmation Modal Dialog -->
+  <dialog id="confirmDialog" class="confirm-dialog" aria-labelledby="dialogTitle" aria-modal="true">
+    <div class="confirm-dialog-content">
+      <div class="dialog-arch-badge" aria-hidden="true">
+        <img src="/assets/lily-mark.svg" alt="" width="48" height="48">
+      </div>
+
+      <p class="dialog-eyebrow">Hold Placed</p>
+      <h2 id="dialogTitle" class="dialog-title">Hour Held.</h2>
+
+      <div class="dialog-ref-box">
+        <span class="dialog-ref-label">Reference Number</span>
+        <strong class="dialog-ref-code" id="mRef">PRS-······</strong>
+      </div>
+
+      <dl class="dialog-summary-list" id="mSum" aria-label="Reservation Summary"></dl>
+
+      <div class="dialog-deposit-status notice notice-info" id="dialogPaymentNotice" hidden>
+        <span class="notice-icon" aria-hidden="true">✓</span>
+        <div class="notice-text" id="dialogPaymentNoticeText">Deposit received; your hold is awaiting confirmation.</div>
+      </div>
+
+      <p class="dialog-note">
+        A gentleman will review the schedule promptly. Confirmation arrives on WhatsApp within one business day — unless it is 2–4 pm, in which case, shortly after nap time.
+      </p>
+
+      <button type="button" class="btn btn-primary btn-block" id="dialogCloseBtn">
+        Return to Presence
+      </button>
+    </div>
+  </dialog>
+
+  <!-- Injected Footer by site.js contract -->
+  <footer id="site-footer"></footer>
+
+</body>
+</html>

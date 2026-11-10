@@ -1,0 +1,866 @@
+/* ==========================================================================
+   Presence. — Admin Portal Stylesheet (Worker F)
+   Design System: Dark Floral Editorial (Federant & Karla)
+   Tokens: Grounds #070506 / #13080b / #1e0e13; Ivory #faf6ee; Crimson #c9161d
+   Prioritises functional, readable, responsive dark administration.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Admin Layout & Shell
+   -------------------------------------------------------------------------- */
+body[data-page="admin"] {
+  background-color: var(--bg-ink, #070506);
+  color: var(--text-bone, #c0b9a6);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-main {
+  flex: 1 0 auto;
+  padding: clamp(24px, 4vh, 48px) 0 clamp(48px, 8vh, 80px);
+  width: 100%;
+}
+
+.crimson-dot {
+  color: var(--crimson, #c9161d);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* --------------------------------------------------------------------------
+   2. Authentication View (Login Card)
+   -------------------------------------------------------------------------- */
+.admin-login-wrap {
+  width: min(440px, 94vw);
+  margin: clamp(40px, 10vh, 100px) auto 0;
+}
+
+.admin-login-card {
+  background: var(--bg-surface, #1e0e13);
+  border: 1px solid var(--border-subtle, rgba(192, 185, 166, 0.14));
+  border-radius: var(--radius-lg, 22px);
+  padding: clamp(28px, 6vw, 42px);
+  box-shadow: var(--shadow-card, 0 16px 36px -12px rgba(0, 0, 0, 0.7));
+  text-align: center;
+}
+
+.admin-login-card h1 {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+}
+
+.admin-login-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted, #8a8270);
+  margin-bottom: 24px;
+}
+
+.admin-login-card .field {
+  text-align: left;
+  margin-bottom: 18px;
+}
+
+.admin-login-card .btn {
+  margin-top: 10px;
+}
+
+/* --------------------------------------------------------------------------
+   3. Dashboard Header & Stats Grid
+   -------------------------------------------------------------------------- */
+.admin-dash-wrap {
+  width: min(var(--container-wide, 1280px), 95vw);
+  margin-inline: auto;
+}
+
+.admin-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border-subtle, rgba(192, 185, 166, 0.14));
+  margin-bottom: 28px;
+}
+
+.admin-top-left h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.admin-top-sub {
+  font-size: 0.82rem;
+  color: var(--text-muted, #8a8270);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.admin-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Independent Counters Stats Grid */
+.admin-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background: var(--bg-surface, #1e0e13);
+  border: 1px solid var(--border-subtle, rgba(192, 185, 166, 0.14));
+  border-radius: var(--radius-md, 14px);
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: border-color var(--transition-fast, 0.18s ease);
+}
+
+.stat-card:hover {
+  border-color: var(--border-cherry, rgba(201, 22, 29, 0.32));
+}
+
+.stat-num {
+  font-family: var(--font-serif, "Federant", Georgia, serif);
+  font-size: 2.3rem;
+  line-height: 1;
+  color: var(--text-ivory, #faf6ee);
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted, #8a8270);
+}
+
+/* --------------------------------------------------------------------------
+   4. Work Area Navigation (Tabs)
+   -------------------------------------------------------------------------- */
+.admin-tabs-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border-subtle, rgba(192, 185, 166, 0.14));
+  padding-bottom: 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.admin-tab-btn {
+  background: transparent;
+  color: var(--text-muted, #8a8270);
+  border: none;
+  font-family: var(--font-sans, "Karla", sans-serif);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 10px 18px;
+  border-radius: var(--radius-pill, 9999px);
+  cursor: pointer;
+  transition: all var(--transition-fast, 0.18s ease);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.admin-tab-btn:hover {
+  color: var(--text-ivory, #faf6ee);
+  background: rgba(192, 185, 166, 0.06);
+}
+
+.admin-tab-btn.is-active,
+.admin-tab-btn[aria-selected="true"] {
+  color: var(--text-ivory, #faf6ee);
+  background: var(--bg-surface-hover, #261219);
+  box-shadow: 0 0 1px 1px var(--border-cherry, rgba(201, 22, 29, 0.32));
+}
+
+.tab-badge {
+  font-size: 0.65rem;
+  padding: 0.15em 0.6em;
+  border-radius: var(--radius-pill, 9999px);
+  background: var(--crimson-soft, rgba(201, 22, 29, 0.12));
+  color: var(--crimson-bright, #e5252d);
+  border: 1px solid var(--border-cherry, rgba(201, 22, 29, 0.32));
+}
+
+/* --------------------------------------------------------------------------
+   5. Work Area Sections & Tables
+   -------------------------------------------------------------------------- */
+.admin-section {
+  margin-bottom: 36px;
+}
+
+.admin-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.admin-section-head h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0;
+}
+
+.filter-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--text-muted, #8a8270);
+}
+
+.filter-inline select {
+  width: auto;
+  min-width: 170px;
+  padding: 0.45em 1.8em 0.45em 0.8em;
+  font-size: 0.82rem;
+}
+
+/* Table Card & Scroll Protection */
+.table-card {
+  background: var(--bg-surface, #1e0e13);
+  border: 1px solid var(--border-subtle, rgba(192, 185, 166, 0.14));
+  border-radius: var(--radius-md, 14px);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm, 0 4px 12px rgba(0, 0, 0, 0.4));
+}
+
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.admin-table th {
+  background: var(--bg-cherry, #13080b);
+  color: var(--text-muted, #8a8270);
+  font-family: var(--font-sans, "Karla", sans-serif);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-medium, rgba(192, 185, 166, 0.24));
+  white-space: nowrap;
+}
+
+.admin-table td {
+  padding: 13px 14px;
+  border-bottom: 1px solid var(--border-subtle, rgba(192, 185, 166, 0.14));
+  vertical-align: top;
+  color: var(--text-bone, #c0b9a6);
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.td-when {
+  min-width: 135px;
+  line-height: 1.4;
+}
+
+.td-who {
+  min-width: 150px;
+  line-height: 1.4;
+}
+
+.td-req {
+  max-width: 300px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--text-muted, #8a8270);
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+.td-actions {
+  white-space: nowrap;
+}
+
+.action-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.table-empty {
+  text-align: center;
+  padding: 32px 16px !important;
+  color: var(--text-muted, #8a8270);
+  font-style: italic;
+}
+
+.table-loading {
+  text-align: center;
+  padding: 32px 16px !important;
+  color: var(--text-muted, #8a8270);
+}
+
+/* --------------------------------------------------------------------------
+   6. Tags, Badges & Action Modifiers
+   -------------------------------------------------------------------------- */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2em 0.75em;
+  border-radius: var(--radius-pill, 9999px);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.tag-pending, .tag.pending {
+  background: rgba(201, 138, 99, 0.16);
+  color: #dfaa87;
+  border: 1px solid rgba(201, 138, 99, 0.35);
+}
+
+.tag-confirmed, .tag.confirmed {
+  background: rgba(117, 131, 92, 0.16);
+  color: #a8be85;
+  border: 1px solid rgba(117, 131, 92, 0.35);
+}
+
+.tag-cancelled, .tag.cancelled {
+  background: rgba(192, 185, 166, 0.08);
+  color: var(--text-muted, #8a8270);
+  border: 1px solid var(--border-subtle, rgba(192, 185, 166, 0.14));
+}
+
+.tag-paid, .tag.paid {
+  background: rgba(117, 131, 92, 0.16);
+  color: #a8be85;
+  border: 1px solid rgba(117, 131, 92, 0.35);
+}
+
+.tag-awaiting, .tag.awaiting {
+  background: var(--crimson-soft, rgba(201, 22, 29, 0.12));
+  color: #ff6870;
+  border: 1px solid var(--border-cherry, rgba(201, 22, 29, 0.32));
+}
+
+/* Applications Status Badges */
+.tag-new {
+  background: var(--crimson-soft, rgba(201, 22, 29, 0.12));
+  color: var(--crimson-bright, #e5252d);
+  border: 1px solid var(--border-cherry, rgba(201, 22, 29, 0.32));
+}
+
+.tag-reviewing {
+  background: rgba(201, 138, 99, 0.16);
+  color: #e5aa89;
+  border: 1px solid rgba(201, 138, 99, 0.35);
+}
+
+.tag-shortlisted {
+  background: rgba(117, 131, 92, 0.16);
+  color: #b5c798;
+  border: 1px solid rgba(117, 131, 92, 0.4);
+}
+
+.tag-rejected {
+  background: rgba(192, 185, 166, 0.08);
+  color: var(--text-dim, #5c5546);
+  border: 1px solid var(--border-subtle, rgba(192, 185, 166, 0.14));
+}
+
+/* Receipt Status Badges */
+.tag-receipt-sent {
+  background: rgba(117, 131, 92, 0.12);
+  color: #a8be85;
+  border: 1px solid rgba(117, 131, 92, 0.3);
+}
+
+.tag-receipt-pending {
+  background: rgba(201, 138, 99, 0.12);
+  color: #dfaa87;
+  border: 1px solid rgba(201, 138, 99, 0.3);
+}
+
+.tag-receipt-failed {
+  background: var(--crimson-soft, rgba(201, 22, 29, 0.12));
+  color: #ff6870;
+  border: 1px solid var(--border-cherry, rgba(201, 22, 29, 0.32));
+}
+
+.btn-ok {
+  background: var(--sage, #75835c);
+  color: var(--text-ivory, #faf6ee);
+  border-color: var(--sage, #75835c);
+}
+
+.btn-ok:hover {
+  background: #88996b;
+  border-color: #88996b;
+}
+
+/* WhatsApp Link Styling */
+.wa-link {
+  color: #8ac985;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.85rem;
+  margin-top: 2px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.wa-link:hover {
+  color: #a8be85;
+}
+
+/* --------------------------------------------------------------------------
+   7. Block Time Form & Grid
+   -------------------------------------------------------------------------- */
+.block-form-card {
+  background: var(--bg-surface, #1e0e13);
+  border: 1px solid var(--border-subtle, rgba(192, 185, 166, 0.14));
+  border-radius: var(--radius-md, 14px);
+  padding: 22px;
+}
+
+.block-form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+.block-form-row .field {
+  margin-bottom: 0;
+}
+
+.block-form-row .field-btn {
+  display: flex;
+  align-items: flex-end;
+}
+
+/* --------------------------------------------------------------------------
+   8. Applications Work Area: Search, Table & Pagination
+   -------------------------------------------------------------------------- */
+.app-filter-form {
+  display: flex;
+  gap: 14px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  background: var(--bg-surface, #1e0e13);
+  border: 1px solid var(--border-subtle, rgba(192, 185, 166, 0.14));
+  border-radius: var(--radius-md, 14px);
+  padding: 18px 22px;
+  margin-bottom: 20px;
+}
+
+.app-search-field {
+  flex: 2 1 240px;
+  margin-bottom: 0;
+}
+
+.app-status-field {
+  flex: 1 1 160px;
+  margin-bottom: 0;
+}
+
+.app-filter-actions {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin-bottom: 0;
+}
+
+.app-results-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--bg-cherry, #13080b);
+  border-bottom: 1px solid var(--border-subtle, rgba(192, 185, 166, 0.14));
+  font-size: 0.8rem;
+  color: var(--text-muted, #8a8270);
+}
+
+.app-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: var(--bg-cherry, #13080b);
+  border-top: 1px solid var(--border-subtle, rgba(192, 185, 166, 0.14));
+}
+
+.page-info {
+  font-size: 0.82rem;
+  color: var(--text-muted, #8a8270);
+}
+
+/* --------------------------------------------------------------------------
+   9. Accessible Dialogs (Detail & Lightbox)
+   -------------------------------------------------------------------------- */
+.admin-dialog {
+  border: 1px solid var(--border-cherry, rgba(201, 22, 29, 0.32));
+  border-radius: var(--radius-lg, 22px);
+  background: var(--bg-surface, #1e0e13);
+  color: var(--text-bone, #c0b9a6);
+  padding: 0;
+  max-width: min(840px, 94vw);
+  max-height: 88vh;
+  margin: auto;
+  box-shadow: var(--shadow-lift, 0 24px 50px -14px rgba(0, 0, 0, 0.85));
+  overflow: hidden;
+}
+
+.admin-dialog::backdrop {
+  background: rgba(7, 5, 6, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 26px;
+  background: var(--bg-cherry, #13080b);
+  border-bottom: 1px solid var(--border-subtle, rgba(192, 185, 166, 0.14));
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.dialog-header h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0;
+}
+
+.dialog-close-btn {
+  background: transparent;
+  color: var(--text-muted, #8a8270);
+  border: none;
+  font-size: 1.8rem;
+  line-height: 1;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: var(--radius-xs, 4px);
+  transition: color var(--transition-fast, 0.18s ease);
+}
+
+.dialog-close-btn:hover {
+  color: var(--crimson-bright, #e5252d);
+}
+
+.dialog-body {
+  padding: 26px;
+  overflow-y: auto;
+  max-height: calc(88vh - 78px);
+}
+
+/* Candidate Profile Grid */
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 760px) {
+  .detail-grid {
+    grid-template-columns: 1.4fr 1fr;
+  }
+}
+
+.detail-section-title {
+  font-family: var(--font-sans, "Karla", sans-serif);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--crimson, #c9161d);
+  margin-bottom: 14px;
+}
+
+.detail-kv-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detail-kv-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.detail-k {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted, #8a8270);
+}
+
+.detail-v {
+  font-size: 0.95rem;
+  color: var(--text-ivory, #faf6ee);
+}
+
+.detail-v a {
+  color: var(--crimson-bright, #e5252d);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  word-break: break-all;
+}
+
+.detail-v a:hover {
+  color: var(--text-ivory, #faf6ee);
+}
+
+.detail-experience {
+  font-family: inherit;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-bone, #c0b9a6);
+  background: var(--bg-ink, #070506);
+  border: 1px solid var(--border-subtle, rgba(192, 185, 166, 0.14));
+  border-radius: var(--radius-sm, 8px);
+  padding: 14px 16px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+/* Status & Receipt Controls Box */
+.detail-actions-box {
+  background: var(--bg-cherry, #13080b);
+  border: 1px solid var(--border-subtle, rgba(192, 185, 166, 0.14));
+  border-radius: var(--radius-md, 14px);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.action-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.action-block label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted, #8a8270);
+}
+
+.status-feedback, .receipt-feedback {
+  font-size: 0.8rem;
+  min-height: 1.3em;
+  color: var(--sage, #75835c);
+}
+
+.status-feedback.is-error, .receipt-feedback.is-error {
+  color: var(--crimson-bright, #e5252d);
+}
+
+/* Candidate Photos Grid */
+.detail-photos-section {
+  margin-top: 28px;
+  border-top: 1px solid var(--border-subtle, rgba(192, 185, 166, 0.14));
+  padding-top: 22px;
+}
+
+.detail-photos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.photo-thumb-btn {
+  background: var(--bg-cherry, #13080b);
+  border: 1px solid var(--border-medium, rgba(192, 185, 166, 0.24));
+  border-radius: var(--radius-sm, 8px);
+  overflow: hidden;
+  aspect-ratio: 1;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  transition: transform var(--transition-fast, 0.18s ease), border-color var(--transition-fast, 0.18s ease);
+}
+
+.photo-thumb-btn:hover {
+  transform: scale(1.03);
+  border-color: var(--crimson, #c9161d);
+}
+
+.photo-thumb-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-thumb-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 0.72rem;
+  color: var(--text-muted, #8a8270);
+  padding: 8px;
+  text-align: center;
+}
+
+/* Lightbox Dialog */
+.photo-dialog {
+  max-width: min(92vw, 900px);
+  max-height: 90vh;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.photo-dialog-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-img {
+  max-width: min(90vw, 860px);
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: var(--radius-md, 14px);
+  border: 1px solid var(--border-cherry, rgba(201, 22, 29, 0.32));
+  box-shadow: var(--shadow-lift, 0 24px 50px -14px rgba(0, 0, 0, 0.85));
+  background: #000;
+}
+
+.lightbox-close-btn {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--bg-surface, #1e0e13);
+  color: var(--text-ivory, #faf6ee);
+  border: 1px solid var(--border-cherry, rgba(201, 22, 29, 0.32));
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
+  transition: transform var(--transition-fast, 0.18s ease), background var(--transition-fast, 0.18s ease);
+}
+
+.lightbox-close-btn:hover {
+  transform: scale(1.1);
+  background: var(--crimson, #c9161d);
+}
+
+/* --------------------------------------------------------------------------
+   10. Action Busy Lock / In-Flight States
+   -------------------------------------------------------------------------- */
+[aria-busy="true"],
+.is-busy {
+  opacity: 0.6 !important;
+  cursor: wait !important;
+  pointer-events: none !important;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   11. Mobile Adaptations
+   -------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .admin-top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .admin-top-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .admin-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .app-filter-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .app-search-field, .app-status-field {
+    width: 100%;
+    flex: 1 1 100%;
+  }
+
+  .app-filter-actions {
+    width: 100%;
+  }
+
+  .app-filter-actions .btn {
+    flex: 1;
+  }
+
+  .block-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .dialog-body {
+    padding: 18px;
+  }
+}

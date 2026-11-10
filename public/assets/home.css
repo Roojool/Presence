@@ -1,0 +1,633 @@
+/* ==========================================================================
+   Presence. — Home Page Specific Styles (Worker C)
+   Dark Floral Editorial · Compact One-Screen Hero · Strict Height Budget
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Compact Desktop Hero
+   -------------------------------------------------------------------------- */
+.home-hero {
+  position: relative;
+  padding: clamp(20px, 3vh, 40px) 0 clamp(16px, 2.5vh, 32px);
+  overflow: hidden;
+  background: radial-gradient(circle at 85% 30%, rgba(201, 22, 29, 0.08) 0%, transparent 60%),
+              radial-gradient(circle at 10% 80%, rgba(19, 8, 11, 0.9) 0%, transparent 50%);
+}
+
+.home-hero-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(20px, 3vw, 48px);
+  align-items: center;
+  width: min(var(--container-wide), 94vw);
+  margin-inline: auto;
+}
+
+@media (min-width: 992px) {
+  .home-hero-container {
+    grid-template-columns: 1.15fr 0.85fr;
+    min-height: min(580px, calc(100vh - 150px));
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. Hero Editorial & Action Panels
+   -------------------------------------------------------------------------- */
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.6vh, 16px);
+  z-index: 2;
+}
+
+.hero-wordmark {
+  font-family: var(--font-serif);
+  font-size: clamp(2.6rem, 5.5vw, 5.2rem);
+  font-weight: 400;
+  line-height: 0.96;
+  letter-spacing: -0.01em;
+  color: var(--text-ivory);
+  margin: 0;
+}
+
+.crimson-dot {
+  color: var(--crimson);
+}
+
+.hero-lede {
+  font-size: clamp(0.92rem, 1.2vw, 1.05rem);
+  line-height: 1.5;
+  color: var(--text-bone);
+  max-width: 580px;
+  margin: 0;
+}
+
+/* Two Distinct Prominent Action Panels */
+.hero-action-panels {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 4px;
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .hero-action-panels {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+}
+
+.action-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.action-panel-book {
+  background: linear-gradient(170deg, #190a0f 0%, #100508 100%);
+  border-color: rgba(201, 22, 29, 0.3);
+}
+
+.action-panel-apply {
+  background: linear-gradient(170deg, #15090d 0%, #0c0406 100%);
+  border-color: rgba(192, 185, 166, 0.2);
+}
+
+.action-panel:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+
+.action-panel-book:hover {
+  border-color: var(--crimson);
+}
+
+.action-panel-apply:hover {
+  border-color: rgba(212, 163, 115, 0.55);
+}
+
+.action-panel-top {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 6px;
+}
+
+.action-badge {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--crimson-bright);
+}
+
+.action-badge-gold {
+  color: var(--gold);
+}
+
+.action-panel-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.15rem, 1.5vw, 1.35rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text-ivory);
+  margin: 0;
+}
+
+.action-panel-body {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  flex-grow: 1;
+}
+
+.action-panel-cta {
+  margin-top: auto;
+}
+
+.action-panel-cta .btn {
+  width: 100%;
+  justify-content: center;
+  padding: 0.6em 1.2em;
+  font-size: 0.72rem;
+}
+
+/* --------------------------------------------------------------------------
+   3. WebGL Lily Stage & Decorative Cropping
+   -------------------------------------------------------------------------- */
+.hero-visual {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-lily-stage {
+  position: relative;
+  width: 100%;
+  height: clamp(340px, 52vh, 500px);
+  min-height: 320px;
+  max-width: 520px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: pan-y;
+}
+
+.hero-lily-halo {
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 22, 29, 0.2) 0%, rgba(201, 22, 29, 0.05) 45%, transparent 70%);
+  pointer-events: none;
+  filter: blur(24px);
+}
+
+.hero-lily-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  pointer-events: auto;
+}
+
+.hero-lily-stage.has-webgl .hero-lily-canvas {
+  display: block;
+}
+
+.hero-lily-fallback {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.hero-lily-stage.has-webgl .hero-lily-fallback {
+  display: none;
+}
+
+.hero-lily-art {
+  width: 82%;
+  max-width: 440px;
+  height: auto;
+  max-height: 90%;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.75));
+}
+
+.hero-lily-noscript {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-lily-caption {
+  position: absolute;
+  bottom: 6px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  pointer-events: none;
+  user-select: none;
+}
+
+.lily-caption-latin {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   4. Compact Floral Transitions
+   -------------------------------------------------------------------------- */
+.floral-transition {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: min(var(--container-narrow), 86vw);
+  margin: clamp(20px, 3.5vh, 40px) auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+.floral-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 22, 29, 0.3), transparent);
+}
+
+.floral-mark-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg-cherry);
+  border: 1px solid rgba(201, 22, 29, 0.28);
+}
+
+.floral-mark-img {
+  width: 18px;
+  height: 18px;
+  opacity: 0.9;
+}
+
+/* --------------------------------------------------------------------------
+   5. Concise Introduction Section
+   -------------------------------------------------------------------------- */
+.home-intro {
+  padding: clamp(24px, 4vh, 48px) 0;
+}
+
+.intro-lead-box {
+  max-width: 680px;
+  margin-inline: auto;
+  text-align: center;
+  margin-bottom: clamp(24px, 3.5vh, 36px);
+}
+
+.intro-lead-box h2 {
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+  margin-bottom: 0.3em;
+}
+
+.intro-lead-box .lede {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.intro-pillars {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+@media (min-width: 768px) {
+  .intro-pillars {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+}
+
+.pillar-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: clamp(16px, 2.2vw, 24px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pillar-num {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--crimson);
+  line-height: 1;
+}
+
+.pillar-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  line-height: 1.2;
+  color: var(--text-ivory);
+  margin: 0;
+}
+
+.pillar-text {
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   6. Compact Team Placeholders (Founder, Co-founder, Co-founder)
+   -------------------------------------------------------------------------- */
+.home-stewards {
+  padding: clamp(20px, 3vh, 40px) 0 clamp(28px, 4vh, 48px);
+}
+
+.stewards-header {
+  text-align: center;
+  margin-bottom: clamp(18px, 2.8vh, 28px);
+}
+
+.stewards-header h2 {
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  margin-bottom: 0;
+}
+
+.compact-team-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  max-width: 480px;
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .compact-team-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(12px, 2vw, 20px);
+    max-width: 860px;
+  }
+}
+
+.compact-team-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 16px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.compact-team-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--crimson);
+  box-shadow: var(--shadow-card);
+}
+
+.compact-team-card:focus-visible {
+  outline: 2px solid var(--crimson);
+  outline-offset: 3px;
+}
+
+.compact-team-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 40%, #2a0b12 0%, #0e0507 80%);
+  border: 1px solid rgba(201, 22, 29, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.compact-team-art {
+  width: 22px;
+  height: 22px;
+  opacity: 0.88;
+}
+
+.compact-team-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.compact-team-name {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--text-ivory);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.compact-team-role {
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.compact-team-qr {
+  margin: 4px 0;
+  padding: 6px;
+  background: #faf6ee;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.compact-qr-img {
+  width: 76px;
+  height: 76px;
+  display: block;
+}
+
+.compact-team-cta {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--crimson-bright);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: auto;
+  transition: color var(--transition-fast);
+}
+
+.compact-team-card:hover .compact-team-cta {
+  color: var(--text-ivory);
+}
+
+@media (max-width: 640px) {
+  .compact-team-card {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    text-align: left;
+    gap: 12px;
+    padding: 12px 14px;
+  }
+
+  .compact-team-info {
+    text-align: left;
+  }
+
+  .compact-team-cta {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    padding-top: 6px;
+    border-top: 1px solid rgba(192, 185, 166, 0.08);
+  }
+
+  .compact-team-qr {
+    padding: 4px;
+  }
+
+  .compact-qr-img {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. Mobile Layout: Actions Ahead of Artwork & Initial Viewport Guarantee
+   -------------------------------------------------------------------------- */
+@media (max-width: 991px) {
+  .home-hero {
+    padding-top: 14px;
+    padding-bottom: 20px;
+  }
+
+  .home-hero-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Content and BOTH actions come strictly FIRST */
+  .hero-content {
+    order: 1;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .hero-wordmark {
+    font-size: clamp(2.4rem, 9.5vw, 3.4rem);
+  }
+
+  .hero-lede {
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+
+  .hero-action-panels {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 2px;
+  }
+
+  .action-panel {
+    padding: 10px 14px;
+  }
+
+  .action-panel-body {
+    margin-bottom: 8px;
+    font-size: 0.82rem;
+  }
+
+  .action-panel-cta .btn {
+    padding: 0.5em 1em;
+  }
+
+  /* Artwork placed decoratively AFTER actions on mobile */
+  .hero-visual {
+    order: 2;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .hero-lily-stage {
+    height: 180px;
+    min-height: 160px;
+    max-width: 280px;
+    mask-image: radial-gradient(ellipse 95% 85% at 50% 50%, black 45%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 95% 85% at 50% 50%, black 45%, transparent 100%);
+  }
+
+  .hero-lily-caption {
+    display: none;
+  }
+}
+
+/* Small screen vertical adjustments */
+@media (max-width: 480px) {
+  .compact-team-thumb {
+    width: 38px;
+    height: 38px;
+  }
+
+  .compact-team-art {
+    width: 18px;
+    height: 18px;
+  }
+
+  .compact-team-name {
+    font-size: 0.82rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .action-panel,
+  .compact-team-card {
+    transition: none;
+  }
+  .action-panel:hover,
+  .compact-team-card:hover {
+    transform: none;
+  }
+}

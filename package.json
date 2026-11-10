@@ -7,14 +7,24 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "test": "node --test test/**/*.test.cjs",
+    "preview:test": "node preview.cjs",
+    "check": "node --test test/**/*.test.cjs",
+    "check:live": "node check.cjs",
+    "build": "wrangler deploy --dry-run"
   },
   "engines": {
     "node": ">=22.13"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.2.0",
+    "aws4fetch": "^1.0.20",
     "express": "^5.1.0",
     "nodemailer": "^10.0.14"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.11",
+    "wrangler": "^4.152.0"
   }
 }

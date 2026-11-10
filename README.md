@@ -1,158 +1,133 @@
-# Presence. — your website, now with a real backend
+# Presence. — Booking & Candidate Application Platform
 
-You don't need to understand code to use this. Just follow the steps in order.
-
----
-
-## What's in this folder?
-
-| Thing | What it is | Do I touch it? |
-|---|---|---|
-| `START.bat` | **Double-click this to turn the website on.** | Yes, every time |
-| `.env` | Your settings and password. Open it with Notepad. | Sometimes |
-| `public/index.html` | Your website (the same design as before) | Only to change words or pictures |
-| `public/admin.html` | Your private admin page | No |
-| `server.js` | The "brain" that saves bookings | No |
-| `data/presence.db` | **All your bookings live here.** It's created automatically. | **Never delete it.** Copy it somewhere safe sometimes as a backup. |
-| `node_modules/` | Downloaded helper code | Never. You can ignore it. |
+A boutique companion booking and candidate application platform engineered with an Express backend, Neon PostgreSQL database, private Cloudflare R2 image storage, Gmail SMTP notification pipeline, and Cloudflare Workers runtime.
 
 ---
 
-## 1. Turn it on (on your own computer)
+## Architecture & Free Commercial Tier Allowances
 
-1. Open the folder `C:\Users\Pratham\presence-website`
-2. **Double-click `START.bat`**
-3. A black window opens and your browser opens at **http://localhost:3000**
-4. **Leave the black window open.** If you close it, the website turns off.
+Engineered to operate within standard **free tier allowances**, with usage-based billing applying only if cloud storage quotas are exceeded. For complete breakdowns, domain pricing, and setup instructions, see [COSTS-SETUP.md](COSTS-SETUP.md):
 
-That's it. Try booking an hour on your own site.
+1. **Edge Runtime & Static Delivery — Cloudflare Workers (Free Plan)**
+   - **Allowance**: 100,000 requests/day, 10ms CPU time per request.
+   - **Entry**: `worker.mjs` bridge importing the official runtime built-in `cloudflare:node` (`handleAsNodeRequest` / `httpServerHandler`), without requiring external compatibility package dependencies.
+   - **Static Routing**: Direct `env.ASSETS` binding serves `/`, `/book`, `/about`, `/apply`, `/admin`, and client assets (`/assets/*`).
+   - **API Forwarding**: Non-static requests dispatch directly to the Express application instance.
+   - **Scheduled Crons**: Daily scheduled trigger at 03:00 UTC (`0 3 * * *`) executing staged upload cleanup. Cleanup operates in batches of 20 to strictly respect the Cloudflare Workers Free allowance of 50 subrequests per invocation (20 R2 deletes + 20 DB deletes + setup queries <= 50).
 
-> "localhost" means "this computer". Only **you** can see it right now.
-> To let other people see it, do step 5 (putting it online).
+2. **Relational Database — Neon Serverless PostgreSQL (Free Tier)**
+   - **Allowance**: 1 GB data storage/project, 100 CU-hours monthly/project (see [Neon Pricing](https://neon.com/pricing)).
+   - **Schema & Migrations**: Additive migrations in `lib/schema.cjs` (applied via `init-db.cjs`), including atomic PostgreSQL PL/pgSQL primitives (`reserve_application_upload`, `finalize_application`).
 
----
+3. **Private Object Storage — Cloudflare R2 (Standard Free Tier)**
+   - **Allowance**: 10 GB storage/month, 1,000,000 Class A (write) operations/month, 10,000,000 Class B (read) operations/month, **$0 egress fees**. (Standard Cloudflare R2 pricing applies beyond these free allowances).
+   - **Security**: Private bucket — zero public read endpoints. Candidate images stream exclusively via authenticated admin endpoints (`GET /api/admin/applications/:id/photos/:photoId`).
+   - **Validation**: Magic header byte detection (JPEG, PNG, WebP) and single-image raw binary validation (<= 5MiB) occur directly within the upload endpoint (`POST /api/applications/upload`) before any storage write.
+   - **Adapter**: Lightweight signed S3 HTTP client via `aws4fetch` supporting both Node.js and Workers runtimes.
 
-## 2. See your bookings (the admin page)
-
-1. With the black window open, go to **http://localhost:3000/admin**
-2. Type your password. It's in the `.env` file on the line `ADMIN_PASSWORD=`
-
-On the admin page you can:
-
-- **confirm** a booking. Then click her phone number: WhatsApp opens with a confirmation message already typed for you.
-- **cancel** a booking. That hour becomes free again on the website.
-- see the **waitlist** (people who wanted an hour that was taken)
-- **block out time** (holidays, busy days) so nobody can book it
-
-### Change your password
-1. Right-click `.env` → **Open with** → **Notepad**
-2. Change the text after `ADMIN_PASSWORD=` (at least 8 characters, no spaces)
-3. Save (Ctrl + S)
-4. Close the black window and double-click `START.bat` again
-
-**Any time you change `.env`, restart by closing the black window and double-clicking START.bat again.**
+4. **Notifications & Receipts — Gmail SMTP**
+   - **Allowance**: Up to 500 emails/day on standard Google accounts.
+   - **Setup**: Requires Google Account 2-Step Verification and a 16-character App Password (https://myaccount.google.com/apppasswords).
+   - **Ports & Host**: Host `smtp.gmail.com`, Port `465` (SSL) or Port `587` (STARTTLS). Port 25 is never used.
+   - **Sender**: Configured via `SMTP_USER` environment variable (never hardcoded in source).
 
 ---
 
-## 3. Get booking alerts on your phone (Telegram, free, about 5 minutes)
+## Safe Local Isolated Preview (Zero Credentials Required)
 
-Right now new bookings only show up in the black window. Here's how to get them on your phone instead:
+Run and inspect the entire application locally without any live database, cloud credentials, or internet connection using the isolated preview runner:
 
-1. Install **Telegram** on your phone and open it.
-2. Search for **@BotFather** (it has a blue tick) and press **Start**.
-3. Send it: `/newbot`
-4. It asks for a name. Type anything, e.g. `Presence Bookings`
-5. It asks for a username ending in `bot`, e.g. `presence_pratham_bot`
-6. It replies with a **token** that looks like `7412345678:AAH...xyz`. Copy it.
-7. Open `.env` in Notepad and paste it after `TELEGRAM_BOT_TOKEN=`
-8. Back in Telegram, open **your new bot** and send it any message (like "hi").
-9. In your browser, go to this address, **replacing `TOKEN` with your token**:
-   `https://api.telegram.org/botTOKEN/getUpdates`
-10. Look for `"chat":{"id":` followed by a number, e.g. `"chat":{"id":123456789`. Copy that number.
-11. Paste it in `.env` after `TELEGRAM_CHAT_ID=`
-12. Save `.env`, restart (close the black window, double-click START.bat).
+```bash
+npm run preview:test
+```
 
-The black window should now say `telegram alerts : on`. Make a test booking and your phone will buzz.
+### Preview Isolation Guarantees:
+- **Database**: In-memory PostgreSQL engine via `@electric-sql/pglite` (WebAssembly) with full PL/pgSQL function support.
+- **Storage**: In-memory storage mock (`MemoryStorage`) serving in-memory image buffers.
+- **Email**: In-memory stub mailer capturing receipts and booking notifications.
+- **Admin Authentication**: Pre-seeded admin session with test password `presence-preview-123`.
+- **Pre-seeded Profile**: Sample candidate profile featuring editorial fashion & luxury commercial brand modeling with renderable PNG portrait.
+- **Environment**: Strict `NO_LOAD_ENV=1` isolation ensuring zero live credentials or `.env` files are accessed.
+
+Access points:
+- **Website**: http://localhost:3000
+- **Apply UI**: http://localhost:3000/apply
+- **Admin Dashboard**: http://localhost:3000/admin (Password: `presence-preview-123`)
+
+*(Defaults to port 3000; override with `PREVIEW_PORT=3099 npm run preview:test`)*
 
 ---
 
-## 4. Email alerts (optional, instead of or as well as Telegram)
+## Local Development (With Real Services)
 
-With Gmail:
-
-1. Your Google account needs **2-Step Verification** switched on.
-2. Go to https://myaccount.google.com/apppasswords, create an app password called "Presence", and copy the 16 letters it shows.
-3. In `.env`, fill in:
+1. Copy `.env.example` to `.env` (or `.env.local` for local-only overrides):
+   ```bash
+   cp .env.example .env
    ```
-   SMTP_HOST=smtp.gmail.com
-   SMTP_PORT=465
-   SMTP_USER=youraddress@gmail.com
-   SMTP_PASS=the16letterpassword
-   NOTIFY_EMAIL=youraddress@gmail.com
+2. Configure settings:
+   - `ADMIN_PASSWORD`: Strong password (min 8 characters).
+   - `DATABASE_URL`: Neon PostgreSQL connection string.
+   - `SMTP_HOST`: `smtp.gmail.com`
+   - `SMTP_PORT`: `465`
+   - `SMTP_USER`: Your Gmail address (`roojool.talekar@gmail.com`).
+   - `SMTP_PASS`: 16-character Gmail App Password.
+   - `NOTIFY_EMAIL`: Notification destination address.
+   - `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`: Private R2 credentials.
+   - `TRUST_PROXY`: Set to `1` when hosted behind a reverse proxy (e.g. Cloudflare / Render).
+3. Initialize the database schema:
+   ```bash
+   node init-db.cjs
    ```
-4. Save and restart.
-
----
-
-## 5. Put it on the internet (so other people can book)
-
-The easiest option is **Render.com** (it has a free plan).
-
-**Before you start:** the free plan wipes the database every time the site restarts or sleeps. For real bookings, pay for their cheapest plan **with a "Disk"** (about $7–8/month), or your bookings will vanish.
-
-Steps:
-
-1. Make a free account on **https://github.com**
-2. Install **GitHub Desktop** (https://desktop.github.com), sign in, then
-   **File → Add local repository →** choose `C:\Users\Pratham\presence-website` → it will offer to "create a repository". Say yes → **Publish repository** (keep it **Private**).
-   *(Your `.env` file and your bookings are automatically NOT uploaded. That's on purpose, because they contain secrets.)*
-3. Make an account on **https://render.com**, then **New + → Web Service →** pick your repository.
-4. Fill in:
-   - **Build Command:** `npm install`
-   - **Start Command:** `npm start`
-5. Under **Environment**, add each line from your `.env` file as a separate entry (name on the left, value on the right). Also add `TRUST_PROXY` = `1`.
-6. (Paid plan) Under **Disks**, add a disk with **Mount Path** `/opt/render/project/src/data`
-7. Click **Create**. In a few minutes you'll get an address like `https://presence-xyz.onrender.com`, which is your live website. The admin page is at `/admin` on that address.
-
-You can connect your own domain name (like `presence.in`) in Render's settings later.
-
----
-
-## 6. Taking a deposit with Razorpay (optional, and only when you're ready)
-
-1. Sign up at https://razorpay.com and finish their business verification (KYC).
-2. Dashboard → **Account & Settings → API Keys → Generate Key**.
-3. In `.env`:
+4. Start the server:
+   ```bash
+   npm start
    ```
-   RAZORPAY_KEY_ID=rzp_live_xxxxx
-   RAZORPAY_KEY_SECRET=xxxxx
-   DEPOSIT_RUPEES=1000
+
+---
+
+## Verification & Testing
+
+The repository includes an extensive regression test suite covering concurrency, atomic primitives, server booking lifecycles, driver contracts, cleanup subrequest budgets, safety guarantees, and UI behavior:
+
+```bash
+# Run isolated test suite
+npm test
+
+# Run isolated check (alias for isolated test suite)
+npm run check
+
+# Verify Cloudflare Workers bundling and compatibility (dry-run)
+npm run build
+```
+
+> [!NOTE]
+> `npm run check` defaults to isolated in-memory test execution. The legacy `check:live` script targets live configured databases and requires explicit `ALLOW_LIVE_CHECK=1`; its presence never implies approval for live writes.
+
+---
+
+## Cloudflare Workers Production Deployment
+
+### Status & Deployment Notes
+- **Database Status**: Neon additive schema migration verified (all 4 application tables ready; existing bookings/waitlist/blocks counts preserved).
+- **Storage**: Native private R2 binding (`APPLICATIONS_BUCKET` -> `presence-applications`) configured in `wrangler.jsonc`. With native binding, no S3 API credentials or public bucket URLs are required for Workers (S3 credential variables are optional and used only for Node.js scripts).
+- **Pending Actions**: Cloudflare OAuth login (`npx wrangler login`), private bucket creation in user account, and Gmail App Password setup are pending human authentication.
+
+1. Create private R2 bucket (once logged in):
+   ```bash
+   npx wrangler r2 bucket create presence-applications
    ```
-   (Use the `rzp_test_` keys first to try it without real money.)
-4. Restart. After booking, a payment window pops up. The admin page shows **deposit paid** or **not paid**.
-
-Leave these empty and payments stay switched off. Bookings still work as normal.
-
----
-
-## 7. Changing things
-
-- **Hours on offer** (07:30, 10:00, 16:00, 19:00): change `SLOTS` near the top of `server.js` **and** the matching `<option>` lines in `public/index.html` (search for `07:30`). They must match.
-- **Practices**: change `PRACTICES` in `server.js` **and** the `<option>` lines in `public/index.html` (search for `The Plus-One`).
-- **Closed days**: `CLOSED_WEEKDAYS = [0]` in `server.js` (0 = Sunday, 6 = Saturday). For one-off days, use "Block out time" on the admin page instead.
-- Restart after any change.
-
----
-
-## When something goes wrong
-
-| What you see | What to do |
-|---|---|
-| The black window flashes and closes | Open the folder, click the address bar, type `cmd`, press Enter, type `node server.js` and press Enter. Now you can read the error. |
-| `EADDRINUSE` / "address already in use" | The website is already running in another black window. Close the extra one. |
-| "Node.js is not installed" | Install the **LTS** version from https://nodejs.org, then try again. |
-| Website says "cannot reach the server" | The black window is closed. Double-click START.bat. |
-| Admin says "Admin is switched off" | Your `ADMIN_PASSWORD` in `.env` is too short (it needs 8 or more characters). |
-| Telegram alerts don't arrive | Check the black window for a "notification failed" message. Usually the token or chat id has a typo, or you never sent your bot a message (step 3.8). |
-
-**Backups:** every so often, copy `data\presence.db` to Google Drive or a USB stick. That one file holds every booking.
+2. Set production secrets in Cloudflare Workers:
+   ```bash
+   npx wrangler secret put ADMIN_PASSWORD
+   npx wrangler secret put DATABASE_URL
+   npx wrangler secret put SMTP_HOST
+   npx wrangler secret put SMTP_PORT
+   npx wrangler secret put SMTP_USER
+   npx wrangler secret put SMTP_PASS
+   npx wrangler secret put NOTIFY_EMAIL
+   npx wrangler secret put CRON_SECRET
+   ```
+3. Deploy to Cloudflare Workers:
+   ```bash
+   npx wrangler deploy
+   ```

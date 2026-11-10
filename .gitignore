@@ -7,9 +7,15 @@ data/
 # Vercel local deploy state
 .vercel
 
+# Cloudflare local cache and build artifacts
+.wrangler/
+dist/
+coverage/
+
 # Real secrets - NEVER commit these
 .env
 .env.local
+.dev.vars*
 
 # OS / editor noise
 Thumbs.db

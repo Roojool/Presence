@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "presence-website-preview",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-10-24",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "workers_dev": true,
+  "send_email": [{ "name": "BOOKING_EMAIL" }],
+  "routes": [
+    { "pattern": "getpresence.me", "custom_domain": true },
+    { "pattern": "www.getpresence.me", "custom_domain": true }
+  ],
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  }
+}

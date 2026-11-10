@@ -1,0 +1,1027 @@
+/* ==========================================================================
+   Presence. — Booking Page Stylesheet (Worker D)
+   Contract: Shares site.css variables, tokens, buttons, and form utilities.
+   Layout: Compact Date Strip + ONE Selected Day's Slots alongside Form (Desktop)
+           / Slots above Form (Mobile).
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Page Layout & Hero Section
+   -------------------------------------------------------------------------- */
+.booking-main {
+  padding-bottom: clamp(60px, 10vh, 120px);
+}
+
+/* Scroll margin for anchor targets so sticky/fixed header does not obscure headings */
+#week,
+#book {
+  scroll-margin-top: clamp(80px, 12vh, 120px);
+}
+
+.booking-hero {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-subtle);
+  background: radial-gradient(circle at 80% 20%, rgba(201, 22, 29, 0.08) 0%, transparent 60%),
+              radial-gradient(circle at 10% 90%, rgba(19, 8, 11, 0.9) 0%, transparent 50%),
+              var(--bg-ink);
+}
+
+.booking-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 36px;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .booking-hero-grid {
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 56px;
+  }
+}
+
+.booking-hero-copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.eyebrow-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  color: var(--crimson);
+}
+
+.booking-title {
+  margin-bottom: 16px;
+}
+
+.booking-title em {
+  font-style: italic;
+  color: var(--crimson-bright);
+}
+
+.booking-meta-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 24px;
+  margin-top: 28px;
+  padding: 16px 22px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-cherry);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.meta-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.meta-val {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--text-ivory);
+}
+
+.meta-item-divider {
+  width: 1px;
+  height: 32px;
+  background: var(--border-subtle);
+  display: none;
+}
+
+@media (min-width: 580px) {
+  .meta-item-divider {
+    display: block;
+  }
+}
+
+.booking-hero-art {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.botanical-frame {
+  position: relative;
+  width: min(320px, 80vw);
+  aspect-ratio: 3 / 3.8;
+  border-radius: var(--radius-arch);
+  border: 1px solid var(--border-cherry);
+  background: radial-gradient(circle at 50% 40%, rgba(201, 22, 29, 0.14) 0%, #120609 85%);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.botanical-art {
+  width: 90%;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.9;
+  filter: drop-shadow(0 10px 24px rgba(201, 22, 29, 0.3));
+}
+
+/* --------------------------------------------------------------------------
+   2. Calendar Alert & Retry Banner
+   -------------------------------------------------------------------------- */
+.calendar-alert {
+  margin-bottom: 24px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.calendar-alert[hidden] {
+  display: none !important;
+}
+
+.notice-icon {
+  font-size: 1.25rem;
+  flex: none;
+}
+
+.notice-text {
+  flex: 1 1 240px;
+}
+
+/* --------------------------------------------------------------------------
+   3. Compact Date Strip & Navigation
+   -------------------------------------------------------------------------- */
+.date-strip-wrapper {
+  background: var(--bg-cherry);
+  border: 1px solid var(--border-cherry);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px 22px;
+  margin-bottom: 36px;
+  box-shadow: var(--shadow-card);
+}
+
+.date-strip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 16px;
+}
+
+.date-strip-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.date-strip-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--text-ivory);
+}
+
+.date-strip-sub {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.date-strip-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.strip-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-bone);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.strip-nav-btn:hover:not(:disabled) {
+  background: var(--bg-surface-hover);
+  border-color: var(--crimson);
+  color: var(--text-ivory);
+}
+
+.strip-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.date-picker-shortcut {
+  position: relative;
+  margin-left: 4px;
+}
+
+.date-jump-input {
+  max-width: 140px;
+  padding: 0.5em 0.8em;
+  font-size: 0.82rem;
+}
+
+/* Horizontal Scroll Area for Date Chips */
+.date-strip-scroll-area {
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--crimson-deep) transparent;
+  padding: 4px 2px 10px;
+}
+
+.date-strip-scroll-area::-webkit-scrollbar {
+  height: 4px;
+}
+
+.date-strip-scroll-area::-webkit-scrollbar-thumb {
+  background: var(--crimson-deep);
+  border-radius: var(--radius-pill);
+}
+
+.date-strip {
+  display: flex;
+  gap: 10px;
+  width: max-content;
+  min-width: 100%;
+}
+
+.date-strip-placeholder {
+  padding: 24px;
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.92rem;
+  width: 100%;
+  text-align: center;
+}
+
+/* Date Pill Item */
+.date-pill {
+  flex: 0 0 auto;
+  min-width: 78px;
+  min-height: 86px;
+  padding: 10px 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  color: var(--text-bone);
+  text-align: center;
+  position: relative;
+  user-select: none;
+}
+
+.date-pill:hover {
+  background: var(--bg-surface-hover);
+  border-color: rgba(201, 22, 29, 0.45);
+  transform: translateY(-2px);
+  color: var(--text-ivory);
+}
+
+.date-pill.is-active,
+.date-pill[aria-selected="true"] {
+  background: var(--bg-cherry-elevated);
+  border-color: var(--crimson);
+  color: var(--text-ivory);
+  box-shadow: 0 0 16px var(--crimson-glow);
+  transform: translateY(-2px);
+}
+
+.date-pill.is-active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: var(--crimson-bright);
+  border-radius: var(--radius-pill);
+}
+
+.date-pill.is-closed {
+  opacity: 0.6;
+  background: rgba(19, 8, 11, 0.6);
+}
+
+.date-pill-day {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.date-pill.is-active .date-pill-day {
+  color: var(--crimson-bright);
+}
+
+.date-pill-num {
+  font-family: var(--font-serif);
+  font-size: 1.65rem;
+  line-height: 1;
+  color: var(--text-ivory);
+}
+
+.date-pill-month {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-bone);
+}
+
+.date-pill-tag {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 1px 7px;
+  border-radius: var(--radius-pill);
+  background: var(--crimson);
+  color: var(--text-ivory);
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.date-pill-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin-top: 3px;
+}
+
+.date-pill-dot.open {
+  background: var(--sage);
+}
+
+.date-pill-dot.closed {
+  background: var(--text-dim);
+}
+
+.date-pill-dot.held {
+  background: var(--amber);
+}
+
+/* --------------------------------------------------------------------------
+   4. Booking Workspace: Desktop Two-Column / Mobile Stacked
+   -------------------------------------------------------------------------- */
+.booking-workspace {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+@media (min-width: 960px) {
+  .booking-workspace {
+    grid-template-columns: 1fr 1.15fr;
+    gap: 40px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Slots Column & Cards
+   -------------------------------------------------------------------------- */
+.slots-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.slots-card {
+  padding: clamp(20px, 3.5vw, 32px);
+  position: relative;
+}
+
+.slots-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 20px;
+}
+
+.slots-kicker {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--crimson);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.slots-day-title {
+  font-size: clamp(1.4rem, 2.6vw, 1.85rem);
+  line-height: 1.15;
+  color: var(--text-ivory);
+}
+
+.slots-body {
+  max-height: 32rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.slots-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 40px 16px;
+  color: var(--text-muted);
+  font-style: italic;
+  text-align: center;
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--border-subtle);
+  border-top-color: var(--crimson);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Individual Slot Card */
+.slot-row {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.slot-row:hover:not(.is-past):not(.is-closed) {
+  border-color: rgba(201, 22, 29, 0.4);
+  background: var(--bg-surface-hover);
+}
+
+.slot-row.is-selected {
+  border-color: var(--crimson);
+  background: var(--bg-cherry-elevated);
+  box-shadow: 0 0 16px var(--crimson-glow);
+}
+
+.slot-row-main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.slot-time-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.slot-time {
+  font-family: var(--font-serif);
+  font-size: 1.55rem;
+  line-height: 1.1;
+  color: var(--text-ivory);
+}
+
+.slot-name {
+  font-size: 0.98rem;
+  color: var(--text-ivory-soft);
+  font-family: var(--font-serif);
+}
+
+.slot-note {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 2px;
+}
+
+.slot-status-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.slot-row.is-held {
+  border-color: rgba(201, 138, 99, 0.35);
+  background: rgba(26, 11, 16, 0.7);
+}
+
+.slot-row.is-past {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Waitlist Inline Section */
+.slot-waitlist-wrap {
+  margin-top: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.waitlist-prompt {
+  font-size: 0.82rem;
+  color: var(--amber);
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.waitlist-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.waitlist-input {
+  flex: 1 1 140px;
+  min-height: 38px;
+  padding: 0.4em 0.8em;
+  font-size: 0.86rem;
+}
+
+.waitlist-btn {
+  flex: 0 0 auto;
+}
+
+.waitlist-status {
+  width: 100%;
+  font-size: 0.82rem;
+  margin-top: 6px;
+  font-style: italic;
+  color: var(--sage);
+}
+
+/* Closed Day Notice */
+.closed-day-card {
+  padding: 32px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  background: rgba(19, 8, 11, 0.6);
+  border: 1px dashed var(--border-medium);
+  border-radius: var(--radius-md);
+}
+
+.closed-day-icon {
+  width: 36px;
+  height: 36px;
+  color: var(--text-dim);
+}
+
+.closed-day-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  color: var(--text-bone);
+}
+
+.closed-day-desc {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  max-width: 360px;
+  line-height: 1.6;
+}
+
+/* Flexible Slot Card */
+.flexible-slot-card {
+  margin-top: 20px;
+  padding: 18px 20px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.flexible-slot-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sage);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.flexible-slot-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--text-ivory);
+  margin-bottom: 2px;
+}
+
+.flexible-slot-note {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  max-width: 420px;
+}
+
+/* --------------------------------------------------------------------------
+   6. Form Column & Booking Form
+   -------------------------------------------------------------------------- */
+.form-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.booking-form-card {
+  padding: clamp(24px, 4vw, 42px);
+  position: relative;
+}
+
+.booking-form-header {
+  margin-bottom: 28px;
+}
+
+.form-title {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--text-ivory);
+  margin-bottom: 12px;
+}
+
+.current-selection-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-cherry);
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  color: var(--text-bone);
+}
+
+.selection-indicator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--crimson);
+  box-shadow: 0 0 8px var(--crimson);
+  flex: none;
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0 20px;
+}
+
+@media (min-width: 600px) {
+  .form-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.select-container {
+  position: relative;
+}
+
+.field-hint-inline {
+  font-size: 0.72rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--text-muted);
+}
+
+/* Honeypot Spam Trap */
+.hp {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+
+/* Checkbox field adjustments */
+.checkbox-field {
+  margin: 26px 0;
+}
+
+.checkbox-text {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--text-bone);
+}
+
+/* Pricing Breakdown in Form */
+.pricing-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-cherry);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-bottom: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pricing-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+}
+
+.pricing-title {
+  font-size: 0.92rem;
+  color: var(--text-bone);
+}
+
+.pricing-num {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  color: var(--text-ivory);
+}
+
+.pricing-subrow {
+  padding-top: 10px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.pricing-subtext {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* Form Submit Area */
+.form-submit-row {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.btn-arrow {
+  transition: transform var(--transition-fast);
+}
+
+.btn-primary:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+.submit-fineprint {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   7. Confirmation Dialog (Native HTML5 <dialog>)
+   -------------------------------------------------------------------------- */
+.confirm-dialog {
+  border: 1px solid var(--border-cherry);
+  border-radius: var(--radius-lg);
+  background: var(--bg-cherry-elevated);
+  color: var(--text-bone);
+  padding: 0;
+  max-width: min(500px, 92vw);
+  margin: auto;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 1px 1px rgba(201, 22, 29, 0.4);
+  overflow: hidden;
+}
+
+.confirm-dialog::backdrop {
+  background: rgba(7, 5, 6, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.confirm-dialog-content {
+  padding: clamp(28px, 6vw, 44px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.dialog-arch-badge {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 22, 29, 0.25) 0%, transparent 70%);
+  border: 1px solid var(--border-cherry);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.dialog-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--crimson);
+  margin-bottom: 6px;
+}
+
+.dialog-title {
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  color: var(--text-ivory);
+  margin-bottom: 16px;
+}
+
+.dialog-ref-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 6px 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.dialog-ref-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.dialog-ref-code {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  color: var(--crimson-bright);
+}
+
+.dialog-summary-list {
+  width: 100%;
+  border-top: 1px solid var(--border-subtle);
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.dialog-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.dialog-row dt {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  flex: none;
+  padding-top: 2px;
+}
+
+.dialog-row dd {
+  font-family: var(--font-serif);
+  font-size: 0.98rem;
+  color: var(--text-ivory);
+  text-align: right;
+  word-break: break-word;
+}
+
+.dialog-deposit-status {
+  width: 100%;
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.dialog-note {
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 24px;
+}
+
+/* --------------------------------------------------------------------------
+   8. Mobile Tap targets & Screen Adaptations (down to 320px)
+   -------------------------------------------------------------------------- */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.mx-auto {
+  margin-inline: auto;
+}
+
+@media (max-width: 480px) {
+  .date-strip-wrapper {
+    padding: 14px 12px 18px;
+  }
+
+  .date-pill {
+    min-width: 66px;
+    min-height: 78px;
+    padding: 8px 6px;
+  }
+
+  .date-pill-num {
+    font-size: 1.4rem;
+  }
+
+  .slots-card,
+  .booking-form-card {
+    padding: 20px 16px;
+  }
+
+  .slot-row {
+    padding: 14px 14px;
+  }
+
+  .slot-time {
+    font-size: 1.35rem;
+  }
+
+  .slot-status-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .btn-sm {
+    min-height: 44px;
+    padding: 0.6em 1.2em;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   9. Reduced Motion Overrides
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .date-pill,
+  .strip-nav-btn,
+  .slot-row,
+  .btn-primary:hover .btn-arrow {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .spinner {
+    animation: none !important;
+  }
+}

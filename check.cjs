@@ -1,3 +1,10 @@
+// check.cjs — Legacy live Neon integration check.
+// Safety Guard: Refuses execution unless ALLOW_LIVE_CHECK===1 is explicitly provided.
+if (process.env.ALLOW_LIVE_CHECK !== '1') {
+  console.error('Refusal: check.cjs targets configured Neon and writes live rows. Run isolated "npm run check" instead, or explicitly set ALLOW_LIVE_CHECK=1 to bypass.');
+  process.exit(1);
+}
+
 // Runnable integration check; temporary test rows are removed in finally.
 const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
