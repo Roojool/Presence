@@ -352,6 +352,14 @@ button {
   border-color: var(--crimson);
 }
 
+@media (max-width: 599px) {
+  .site-header-container { width: calc(100% - 32px); height: 66px; gap: 10px; }
+  .site-brand { gap: 8px; }
+  .site-brand-text { font-size: 1.55rem; }
+  .site-header-actions { gap: 8px; }
+  .site-header-cta { display: inline-flex; min-height: 44px; padding-inline: 16px; }
+}
+
 .site-menu-bar {
   display: block;
   width: 20px;

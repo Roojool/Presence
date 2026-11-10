@@ -14,8 +14,10 @@
   <!-- Shared Design System -->
   <link rel="stylesheet" href="/assets/site.css">
   <link rel="stylesheet" href="/assets/home.css">
+  <link rel="stylesheet" href="/assets/story.css">
   <script defer src="/assets/site.js"></script>
   <script defer src="/assets/home.js"></script>
+  <script defer src="/assets/story.js"></script>
 </head>
 <body data-page="home">
 
@@ -92,13 +94,6 @@
               <img src="/assets/lily-art.svg" alt="" width="520" height="700" class="hero-lily-art" aria-hidden="true" />
             </div>
 
-            <!-- NoScript Static Fallback -->
-            <noscript>
-              <div class="hero-lily-noscript">
-                <img src="/assets/lily-art.svg" alt="Presence — Red Spider Lily botanical artwork" width="520" height="700" class="hero-lily-art" />
-              </div>
-            </noscript>
-
             <div class="hero-lily-caption" aria-hidden="true">
               <span class="lily-caption-latin">Lycoris radiata</span>
               <span class="lily-caption-dot">&middot;</span>
@@ -119,41 +114,36 @@
       <div class="floral-line"></div>
     </div>
 
-    <!-- 02 · One Concise Introduction Section -->
-    <section class="home-intro" id="about-services" aria-label="About Services">
-      <div class="container">
-        <div class="intro-lead-box">
-          <p class="eyebrow justify-center">Two Separate Services</p>
-          <h2>Presence by <em>the hour.</em></h2>
-          <p class="lede mx-auto">
-            We provide single-person hourly companionship for ladies, and review model applications for upcoming fashion and brand work.
-          </p>
+    <section class="flower-story" id="about-services" aria-label="The Presence story">
+      <div class="story-grid container">
+        <div class="story-visual" aria-hidden="true" data-stage="1">
+          <div class="story-halo"></div>
+          <img class="story-flower" src="/assets/lily-art.svg" alt="" width="600" height="800">
+          <div class="story-index"><span class="story-current">01</span><span class="story-index-line"></span><span>03</span></div>
+          <p class="story-caption">LYCORIS RADIATA <span>·</span> PRESENCE</p>
         </div>
-
-        <div class="intro-pillars">
-          <div class="pillar-card">
-            <span class="pillar-num">01</span>
-            <h3 class="pillar-title">Companionship</h3>
-            <p class="pillar-text">
-              Hourly companionship exclusively for ladies. Dedicated one-on-one time for conversation, escort, or shared calm.
-            </p>
-          </div>
-
-          <div class="pillar-card">
-            <span class="pillar-num">02</span>
-            <h3 class="pillar-title">Model Inquiries</h3>
-            <p class="pillar-text">
-              We are hiring fashion and brand models. Candidates can share their details and Instagram profile to apply.
-            </p>
-          </div>
-
-          <div class="pillar-card">
-            <span class="pillar-num">03</span>
-            <h3 class="pillar-title">Clear Boundaries</h3>
-            <p class="pillar-text">
-              Companionship is strictly wholesome and legal. Confidentiality is respected for all bookings.
-            </p>
-          </div>
+        <div class="story-chapters">
+          <article class="story-chapter" data-story-chapter="1">
+            <div class="story-mobile-flower" aria-hidden="true"><img src="/assets/lily-art.svg" alt="" width="600" height="800"></div>
+            <p class="story-eyebrow"><span>01</span> A MOMENT OF PRESENCE</p>
+            <h2>Time, held <em>for you.</em></h2>
+            <p>Some moments deserve your full attention. Presence offers thoughtful, one-to-one companionship for ladies, shaped around the time you need.</p>
+            <span class="story-note">CONSIDERED COMPANY <span>·</span> CLEAR BOUNDARIES</span>
+          </article>
+          <article class="story-chapter" data-story-chapter="2">
+            <div class="story-mobile-flower" aria-hidden="true"><img src="/assets/lily-art.svg" alt="" width="600" height="800"></div>
+            <p class="story-eyebrow"><span>02</span> THE COMPANION SERVICE</p>
+            <h2>One hour. <em>Your way.</em></h2>
+            <p>From an attentive dinner companion to a quiet conversation, choose the hour that feels right. Every booking is private, wholesome and respectful.</p>
+            <a href="/book" class="story-link">BOOK AN HOUR <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="story-chapter" data-story-chapter="3">
+            <div class="story-mobile-flower" aria-hidden="true"><img src="/assets/lily-art.svg" alt="" width="600" height="800"></div>
+            <p class="story-eyebrow"><span>03</span> THE CREATIVE COMMUNITY</p>
+            <h2>Make an <em>impression.</em></h2>
+            <p>We're also welcoming fashion and brand models. Share your story and Instagram profile with our team; newcomers are welcome.</p>
+            <a href="/apply" class="story-link">APPLY TO BE A MODEL <span aria-hidden="true">↗</span></a>
+          </article>
         </div>
       </div>
     </section>
